@@ -8,10 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 // router
+const userRouter = require('./routes/users');
+const photoRouter = require('./routes/photos');
 
-app.get('/', (req, res) => {
-  res.status(200).send('연결이 아주 잘 되었습니다! :)');
-});
+app.use('/', photoRouter);
+app.use('/user', userRouter);
 
 app.listen(port, () => {
   console.log(`Starry Night 🌃 http://localhost:${port}`);
