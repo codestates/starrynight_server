@@ -5,9 +5,18 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Photo extends Model {
     static associate(models) {
-      Photo.belongsTo(models.User, { foreignKey: 'userId', targetKey: 'id' });
-      Photo.hasMany(models.HashTag, { foreignKey: 'id', sourceKey: 'hashTagId' });
-      Photo.hasMany(models.Reply, { foreignKey: 'photoId', sourceKey: 'id' });
+      Photo.hasMany(models.Reply, {
+        foreignKey: 'id',
+        sourceKey: 'id'
+      });
+
+      Photo.hasMany(models.HashTag, {
+        foreignKey: 'hashTagId',
+        sourceKey: 'id'
+      });
+
+      Photo.belongsTo(models.User, { foreignKey: 'userId' });
+      Photo.belongsTo(models.Favorite, { foreignKey: 'id' });
     };
   };
   Photo.init({

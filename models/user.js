@@ -5,12 +5,15 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      User.hasMany(models.Photo, { foreignKey: 'userId', sourceKey: 'id' });
-      User.belongsTo(models.LoginPlatform, { foreignKey: 'loginPlatformId', targetKey: 'id' });
+      User.belongsTo(models.LoginPlatform, {
+        foreignKey: 'loginPlatformId',
+        targetKey: 'id'
+      });
+
       User.belongsToMany(models.Favorite, {
         through: 'Photo',
         foreignKey: 'userId'
-      });
+      })
     };
   };
 

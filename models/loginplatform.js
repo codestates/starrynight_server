@@ -5,7 +5,10 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class LoginPlatform extends Model {
     static associate(models) {
-      LoginPlatform.hasMany(models.User, { foreignKey: 'loginPlatformId', sourceKey: 'id' });
+      LoginPlatform.hasMany(models.User, {
+        foreignKey: 'loginPlatformId',
+        sourceKey: 'id'
+      });
     };
   };
   LoginPlatform.init({

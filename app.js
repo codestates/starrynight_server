@@ -1,11 +1,19 @@
 const express = require('express');
+const session = require('express-session');
 const app = express();
-const port = process.env.NODE_PORT || 8000;
+const port = process.env.PORT || 8000;
 const cors = require('cors');
 
 // middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use(session({
+  secret: 'GOGo',
+  resave: false,
+  saveUninitialized: true
+}))
 
 // router
 const userRouter = require('./routes/users');
