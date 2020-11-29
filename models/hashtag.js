@@ -5,7 +5,10 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class HashTag extends Model {
     static associate(models) {
-      HashTag.belongsTo(models.Photo, { foreignKey: 'id', targetKey: 'id' });
+      HashTag.belongsTo(models.Photo, {
+        foreignKey: 'hashTagId',
+        targetKey: 'id'
+      });
     }
   };
   HashTag.init({

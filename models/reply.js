@@ -5,8 +5,11 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Reply extends Model {
     static associate(models) {
-      Reply.belongsTo(models.Photo, { foreignKey: 'photoId', targetKey: 'id' });
-    }
+      Reply.belongsTo(models.Photo, {
+        foreignKey: 'id',
+        targetKey: 'id'
+      });
+    };
   };
   Reply.init({
     photoId: DataTypes.INTEGER,
