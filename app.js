@@ -5,14 +5,32 @@ const port = process.env.PORT || 8000;
 const cors = require('cors');
 
 // middleware
-app.use(cors());
+app.use(cors({
+ 	origin : '*',
+	methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+	 credentials : true,
+	    allowedHeaders: [
+      'Origin',
+      'X-Requested-With',
+      'Content-Type',
+      'Accept',
+      'Authorization',
+      'Access-Control-Request-Headers',
+      'Access-Control-Allow-Headers',
+      'x-custom-header',
+      'Content-Range',
+    ],
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(session({
   secret: 'GOGo',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+	cookie: {
+		sameSite: 'none'
+	}
 }))
 
 // router

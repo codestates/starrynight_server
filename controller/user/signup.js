@@ -2,16 +2,16 @@ const { User } = require('../../models');
 
 module.exports = {
   post: async (req, res) => {
-    const { email, nickname, mobile, password, profilePath, loginPlatform } = req.body;
+    const { email, nickname, mobile, password, profilePath, loginPlatformId } = req.body;
 
-    if (!email || !nickname || !mobile || !password || !loginPlatform) {
+    if (!email || !nickname || !mobile || !password || !loginPlatformId) {
       res.status(422).send('정보를 다 입력해주세요');
     }
 
     const newUser = await User
       .findOrCreate({
         where: { email, nickname },
-        defaults: { mobile: mobile, password: password, loginPlatform: loginPlatform, profilePath: profilePath }
+        defaults: { mobile: mobile, password: password, loginPlatformId: loginPlatformId, profilePath: profilePath }
       });
 
     if (newUser) {
