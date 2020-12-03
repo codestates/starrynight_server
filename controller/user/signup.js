@@ -22,7 +22,7 @@ module.exports = {
       }
 
       try {
-        res.status(201).json(user);
+        res.status(201).json("회원가입이 완료되었습니다.");
       } catch (err) {
         res.sendStatus(500);
       }

@@ -3,12 +3,13 @@ const session = require('express-session');
 const app = express();
 const port = process.env.PORT || 8000;
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 // middleware
 app.use(cors({
- 	origin : '*',
+ 	origin : true,
 	methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
-	 credentials : true,
+	credentials: true,
 	    allowedHeaders: [
       'Origin',
       'X-Requested-With',
@@ -21,6 +22,8 @@ app.use(cors({
       'Content-Range',
     ],
 }));
+
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -29,6 +32,9 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 	cookie: {
+		path: '/',
+		secure: true,
+		httpOnly: false,
 		sameSite: 'none'
 	}
 }))
