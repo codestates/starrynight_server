@@ -7,20 +7,20 @@ const cookieParser = require('cookie-parser');
 
 // middleware
 app.use(cors({
- 	origin : true,
-	methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
-	credentials: true,
-	    allowedHeaders: [
-      'Origin',
-      'X-Requested-With',
-      'Content-Type',
-      'Accept',
-      'Authorization',
-      'Access-Control-Request-Headers',
-      'Access-Control-Allow-Headers',
-      'x-custom-header',
-      'Content-Range',
-    ],
+  origin: true,
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+  credentials: true,
+  allowedHeaders: [
+    'Origin',
+    'X-Requested-With',
+    'Content-Type',
+    'Accept',
+    'Authorization',
+    'Access-Control-Request-Headers',
+    'Access-Control-Allow-Headers',
+    'x-custom-header',
+    'Content-Range',
+  ],
 }));
 
 app.use(cookieParser());
@@ -31,12 +31,12 @@ app.use(session({
   secret: 'GOGo',
   resave: false,
   saveUninitialized: true,
-	cookie: {
-		path: '/',
-		secure: true,
-		httpOnly: false,
-		sameSite: 'none'
-	}
+  cookie: {
+    path: '/',
+    secure: true,
+    httpOnly: false,
+    sameSite: 'none'
+  }
 }))
 
 // router

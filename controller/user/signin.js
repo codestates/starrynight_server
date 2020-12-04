@@ -5,7 +5,6 @@ const KEY = process.env.SECRET_KEY;
 module.exports = {
   post: async (req, res) => {
     const { email, password } = req.body;
-    console.log('hihi');
 
     const userData = await User.findOne({ where: { email, password } });
 
@@ -16,16 +15,22 @@ module.exports = {
 
         let token = jwt.sign(
           { id: userData.id },
-          '2394gsdf',
-          { expiresIn: '50m' }
+          KEY,
+          { expiresIn: '1h' }
         );
 
-        res.cookie('user', token, {httpOnly: true, sameSite: 'none', secure: true});
+        res.cookie('user', token, {
+          httpOnly: true,
+          sameSite: 'none',
+          secure: true,
+          domain: '.mystar-story.com',
+        });
 
         res.status(200).json({
-		email : userData.email,
-		userId : userData.userId,
-		loginPlatformId : userData.loginPlatformId});
+          email: userData.email,
+          userId: userData.userId,
+          loginPlatformId: userData.loginPlatformId
+        });
       }
     } catch (err) {
       res.sendStatus(500);
