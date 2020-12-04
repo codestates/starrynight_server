@@ -1,4 +1,6 @@
 const { User } = require('../../models');
+const jwt = require('jsonwebtoken');
+const KEY = process.env.SECRET_KEY;
 
 module.exports = {
   info: async (req, res) => {
@@ -12,14 +14,18 @@ module.exports = {
      */
 
     // Test
-    const { userId } = req.body;
+    // const { userId } = req.body;
 
     // Production
-    //const userId = req.session.userId;
+    const token = req.cookie.user;
+
+    // 해당 토큰이 유효한지 판단
+    const decode = token.verify(token, KEY);
 
 
-    if (userId) {
-      let userData = await User.findOne({ where: { id: userId } });
+
+    if (decode) {
+      let userData = await User.findOne({ where: { id: decode.id } });
 
       if (userData) {
         res.status(200).json({
