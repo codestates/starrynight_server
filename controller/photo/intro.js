@@ -1,7 +1,5 @@
 module.exports = {
-  get: async (req, res) => {
-	  console.log('hihihihi');
-	console.log(req.headers);
-	res.sendStatus(200);
-  }
+	get: async (req, res) => {
+		res.sendStatus(200); // ELB Health Check
+	}
 };

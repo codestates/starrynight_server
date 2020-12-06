@@ -16,7 +16,7 @@ app.use(cors({
     'Content-Type',
     'Accept',
     'Authorization',
-	  'Access-Control-Allow-Origin',
+    'Access-Control-Allow-Origin',
     'Access-Control-Request-Headers',
     'Access-Control-Allow-Headers',
     'x-custom-header',

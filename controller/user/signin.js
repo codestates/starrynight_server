@@ -5,7 +5,7 @@ const KEY = process.env.SECRET_KEY;
 module.exports = {
   post: async (req, res) => {
     const { email, password } = req.body;
-	  console.log(req.body);
+    console.log(req.body);
     const userData = await User.findOne({ where: { email, password } });
 
     try {
