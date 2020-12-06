@@ -28,17 +28,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(session({
-  secret: 'GOGo',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    path: '/',
-    secure: true,
-    httpOnly: false,
-    sameSite: 'none'
-  }
-}))
 
 // router
 const userRouter = require('./routes/users');

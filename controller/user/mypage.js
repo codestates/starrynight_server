@@ -17,7 +17,8 @@ module.exports = {
     // const { userId } = req.body;
 
     // Production
-    const token = req.cookie.user;
+    const token = req.cookie.accessToken;
+console.log(req.cookie);
 
     // 해당 토큰이 유효한지 판단
     const decode = token.verify(token, KEY);

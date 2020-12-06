@@ -14,7 +14,8 @@ let storage = multer.diskStorage({
 
 let upload = multer({ storage: storage });
 
-router.get('/', photoController.main.get);
+router.get('/', photoController.intro.get);
+router.get('/main', photoController.main.get);
 router.post('/addphoto', upload.single('img'), photoController.addPhoto.post);
 router.get('/:id', photoController.pickPhoto.get);
 router.patch('/:id/modify', photoController.modifyPhoto.patch);
