@@ -15,14 +15,14 @@ module.exports = {
 
     // Test
     // const { userId } = req.body;
+    
+	  // Production
+    const token = req.headers.authorization;
 
-    // Production
-    const token = req.cookie.accessToken;
-console.log(req.cookie);
 
     // 해당 토큰이 유효한지 판단
-    const decode = token.verify(token, KEY);
-
+    const decode = jwt.verify(req.headers.authorization, KEY);
+console.log(decode)
 
 
     if (decode) {
