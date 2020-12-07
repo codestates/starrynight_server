@@ -5,10 +5,10 @@ const KEY = process.env.SECRET_KEY;
 module.exports = {
   info: async (req, res) => {
     // Production
-    const token = req.headers.authorization;
-
+    const token = req.cookies.accessToken;
+	console.log(token);
     // 해당 토큰이 유효한지 판단
-    const decode = jwt.verify(req.headers.authorization, KEY);
+    const decode = jwt.verify(token, KEY);
     console.log('토큰 디코딩 정보 : ', decode);
 
 
