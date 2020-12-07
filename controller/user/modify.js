@@ -41,8 +41,8 @@ module.exports = {
     const token = req.cookies.accessToken;
     const decode = jwt.verify(token, KEY);
     const { mobile } = req.body;
-
-    const modifyMobile = await User.update(
+    
+	  const modifyMobile = await User.update(
       { mobile: mobile },
       { where: { id: decode.id } }
     );

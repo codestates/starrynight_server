@@ -1,5 +1,14 @@
+const jwt = require('jsonwebtoken');
+const KEY = process.env.SECRET_KEY;
+
 module.exports = {
   post: (req, res) => {
-    res.status(200).send('반가워요 :) 여기는 로그아웃 페이지입니다.');
+    const token = req.cookies.accessToken;
+    const decode = jwt.verify(token, KEY);
+
+    if (decode) {
+      decode.exp = 0;
+      res.status(200).send('사용자가 로그아웃을 했습니다.');
+    }
   }
 }
