@@ -25,6 +25,7 @@ module.exports = {
     const token = req.cookies.accessToken;
     const decode = jwt.verify(token, KEY);
     const { password } = req.body;
+	  console.log(req);
 
     const modifyPassword = await User.update(
       { password: password },
