@@ -13,7 +13,7 @@ module.exports = {
 
 
     if (decode) {
-      let userData = await User.findOne({ where: { id: decode.id } });
+      let userData = await User.findOne({ where: { id: 9 } });
 
       if (userData) {
         res.status(200).json({
