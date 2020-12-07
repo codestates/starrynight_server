@@ -2,9 +2,16 @@ const { User } = require('../../models');
 const nodeMailer = require('nodemailer');
 
 module.exports = {
-  email: (req, res) => {
+  email: async (req, res) => {
     // 연락처로 id로 이메일 찾기
-    res.status(200).send('반가워요 :) 여기는 사용자 찾기 중 이메일 찾는 페이지입니다.');
+    const { mobile } = req.body;
+    const findUser = User.findOne({ where: { mobile: mobile } });
+
+    if (findUser) {
+      res.status(200).json(`귀하의 이메일은 ${findUser.email} 입니다.`);
+    } else {
+      res.status(404).send('연락처를 정확히 입력해주세요.');
+    }
   },
 
   password: async (req, res) => {
@@ -39,9 +46,11 @@ module.exports = {
         if (err) {
           console.log(err);
         } else {
-          res.send(200).send('변경된 비밀번호를 저장된 메일로 전송했습니다.');
+          res.send(200).send('가입하신 이메일로 임시 비밀번호를 전송합니다.');
         }
-      })
+      });
+    } else {
+      res.status(404).send('일치하는 사용자가 없습니다.');
     }
   }
 }
