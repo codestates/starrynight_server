@@ -12,10 +12,8 @@ module.exports = {
     // 해당 토큰이 유효한지 판단
     const decode = jwt.verify(token, KEY);
 
-    console.log('토큰 디코딩 정보 : ', decode);
-
     if (decode) {
-      let userData = await User.findOne({ where: { id: 9 } });
+      let userData = await User.findOne({ where: { id: decode.id } });
 
       if (userData) {
         res.status(200).json({
