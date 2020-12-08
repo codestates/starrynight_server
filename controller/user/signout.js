@@ -7,7 +7,7 @@ module.exports = {
     const decode = jwt.verify(token, KEY);
 
     if (decode) {
-      decode.exp = 0;
+      res.clearCookie('refreshToken');
       res.status(200).send('사용자가 로그아웃을 했습니다.');
     }
   }

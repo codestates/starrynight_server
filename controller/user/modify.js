@@ -7,8 +7,8 @@ module.exports = {
     const token = req.cookies.accessToken;
     const decode = jwt.verify(token, KEY);
     const { nickname } = req.body;
-	  console.log(req.body);
-  console.log(nickname, ' : ', decode.id);
+    console.log(req.body);
+    console.log(nickname, ' : ', decode.id);
     const modifyNickname = await User.update(
       { nickname: nickname },
       { where: { id: decode.id } }
@@ -25,7 +25,7 @@ module.exports = {
     const token = req.cookies.accessToken;
     const decode = jwt.verify(token, KEY);
     const { password } = req.body;
-	  console.log(req);
+    console.log(req);
 
     const modifyPassword = await User.update(
       { password: password },
@@ -41,8 +41,8 @@ module.exports = {
     const token = req.cookies.accessToken;
     const decode = jwt.verify(token, KEY);
     const { mobile } = req.body;
-    
-	  const modifyMobile = await User.update(
+
+    const modifyMobile = await User.update(
       { mobile: mobile },
       { where: { id: decode.id } }
     );
