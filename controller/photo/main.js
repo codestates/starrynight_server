@@ -1,6 +1,10 @@
 module.exports = {
 	get: async (req, res) => {
-		res.sendStatus(200);
+		if (req.headers.authorization) {
+			res.status(404).json('토큰이 없습니다!!');
+		} else {
+			res.status(200).json(req.headers.authorization);
+		}
 	}
 };
 
