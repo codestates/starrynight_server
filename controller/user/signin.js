@@ -1,5 +1,6 @@
 const { User } = require('../../models');
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
 const KEY = process.env.SECRET_KEY;
 
 module.exports = {
@@ -41,7 +42,17 @@ module.exports = {
   },
 
   google: async (req, res) => {
-    res.status(200).send('code 잘 받아왔습니다~!');
+    const url = 'https://www.googleapis.com/oauth2/v4/token';
+    const code = req.query.code;
+    let form = {
+      code: code,
+      client_id: process.env.GOOGLE_ID,
+      client_secret: process.env.GOOGLE_SECRET_KEY,
+      redirect_uri: 'https://api.mystar-story.com/user/signin/google',
+      grant_type: 'authorization_code'
+    };
+    let token = await axios.post(url, form);
+    console.log(token);
   }
 }
 
