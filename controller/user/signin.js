@@ -1,7 +1,7 @@
 const { User } = require('../../models');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
-const KEY = process.env.SECRET_KEY;
+const qs = require('querystring');
 
 module.exports = {
   post: async (req, res) => {
@@ -21,7 +21,7 @@ module.exports = {
 
         let accessToken = jwt.sign(
           { id: userData.id },
-          KEY,
+          process.env.SECRET_KEY,
           { expiresIn: '1d' }
         );
 
@@ -51,7 +51,8 @@ module.exports = {
       redirect_uri: 'https://api.mystar-story.com/user/signin/google',
       grant_type: 'authorization_code'
     };
-    let token = await axios.post(url, form);
+
+    let token = await axios.post(url, qs.stringify(form));
     console.log(token);
   }
 }
