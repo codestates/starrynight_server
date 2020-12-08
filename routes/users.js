@@ -4,6 +4,7 @@ const router = express.Router();
 const { userController } = require('../controller');
 
 router.post('/signin', userController.signin.post);
+router.post('/signin/google', userController.signin.google);
 router.post('/signup', userController.signup.post);
 router.post('/signout', userController.signout.post);
 router.post('/find/email', userController.findUser.email);

@@ -38,6 +38,10 @@ module.exports = {
     } catch (err) {
       res.sendStatus(500);
     }
+  },
+
+  google: async (req, res) => {
+    res.status(200).send('code 잘 받아왔습니다~!');
   }
 }
 
