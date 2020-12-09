@@ -12,7 +12,7 @@ module.exports = {
 
       // 만들어진 해시태그id를 Photo 테이블에 UPDATE 한다
       const addHashtag = await Photo.update(
-        { hashTagId: newHashtag.id },
+        { hashtagId: newHashtag.id },
         { where: { photoPath: photoPath } }
       );
 
