@@ -44,6 +44,7 @@ module.exports = {
   google: async (req, res) => {
     const url = 'https://www.googleapis.com/oauth2/v4/token';
     const code = req.query.code;
+	  console.log(code);
     const form = {
       code: code,
       client_id: process.env.GOOGLE_ID,
@@ -53,18 +54,25 @@ module.exports = {
     };
 
     let token = await axios.post(url, qs.stringify(form));
-    console.log('구글 로그인 사용자의 토큰 : ', token);
+    console.log('구글 로그인 사용자의 토큰 : ', token.data.access_token);
 
-    let userInfo = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${token}`);
-    console.log('토큰으로 사용자 정보를 받음 : ', userInfo);
+    let userInfo = await axios({
+      method: "GET",
+      url: `https://www.googleapis.com/oauth2/v1/userinfo`,
+      headers: {
+        Authorization: `Bearer ${token.data.access_token}`
+      }
+    });
+	  console.log('토큰으로 사용자 정보를 받음 : ', userInfo);
   },
 
   kakao: async (req, res) => {
     const url = 'https://kauth.kakao.com/oauth/token';
     const code = req.query.code;
-    const form = {
+    console.log(code);
+	  const form = {
       code: code,
-      client_id: process.env.KAKAO_KEY,
+      client_id: process.env.KAKAO_ID,
       client_secret: process.env.KAKAO_SECRET_KEY,
       redirect_uri: 'https://api.mystar-story.com/user/signin/kakao',
       grant_type: 'authorization_code'
@@ -77,7 +85,7 @@ module.exports = {
       method: "GET",
       url: `https://kapi.kakao.com/v2/user/me`,
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token.data.access_token}`
       }
     });
 
