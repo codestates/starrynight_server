@@ -1,4 +1,4 @@
-const { User, Photo } = require("../../models");
+const { Photo } = require("../../models");
 const jwt = require("jsonwebtoken");
 const KEY = process.env.SECRET_KEY;
 
@@ -11,13 +11,15 @@ module.exports = {
       let token = userToken;
       let decode = jwt.verify(token, KEY);
       console.log("**** Token Decode 정보 : ", decode);
-
-      if (!photoPath || !title) {
-        res.status(422).json({ success: false });
-      }
+      console.log(`*** 사진저장 정보 :
+      userId      :::>  ${decode.id}
+      photoTitle  :::>  ${title}
+      photoPath   :::>  ${photoPath}
+      location    :::>  ${location}
+      `);
 
       const newPhoto = await Photo.create({
-        userId: decode,
+        userId: decode.id,
         photoTitle: title,
         photoPath: photoPath,
         location: location,
