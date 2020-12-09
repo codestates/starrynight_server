@@ -15,11 +15,20 @@ let upload = multer({
   storage: multerS3({
     // s3 bucket 연동내용
     s3: s3,
-    bucket: "mystar-story.com",
+    bucket: "mystar-story.com/uploadPhotos",
 
     // 업로드 파일명 부여(경로명 끝에 JPG 파일포맷을 추가)
     key: function (req, file, cb) {
-      cb(null, Date.now().toString() + ".jpg");
+      // cb(null, Date.now().toString() + ".jpg");
+      let date = ("0" + new Date().getDate()).slice(-2);
+      let month = ("0" + (new Date().getMonth() + 1)).slice(-2);
+      let year = new Date().getFullYear();
+      let hours = new Date().getHours();
+      let minutes = new Date().getMinutes();
+      let seconds = new Date().getSeconds();
+      const timestamp = `${year}${month}${date}_${hours}${minutes}${seconds}`;
+
+      cb(null, timestamp + ".jpg");
     },
 
     // 용량제한 설정
@@ -40,6 +49,7 @@ router.get("/", photoController.intro.get);
 router.get("/main", photoController.main.get);
 router.post("/addphoto", upload.single("file"), photoController.addPhoto.post);
 router.post("/savephoto", photoController.savePhoto.post);
+router.post("/hashtager", photoController.hashtager.post);
 router.get("/:id", photoController.pickPhoto.get);
 router.patch("/:id/modify", photoController.modifyPhoto.patch);
 router.delete("/:id/delete", photoController.deletePhoto.delete);
