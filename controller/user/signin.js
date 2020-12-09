@@ -70,7 +70,7 @@ module.exports = {
       grant_type: 'authorization_code'
     };
 
-    let token = await axios.get(url, qs.stringify(form));
+    let token = await axios.post(url, qs.stringify(form));
     console.log('카카오 로그인 사용자의 토큰 : ', token);
 
     let userInfo = await axios({
