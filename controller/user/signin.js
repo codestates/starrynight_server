@@ -88,9 +88,9 @@ module.exports = {
         secure: true,
       });
 
-      res.status(200).json({ accessToken: tokens[1] });
+      //res.status(200).json({ accessToken: tokens[1] });
 
-      //res.redirect('https://mystar-story.com/');
+      res.redirect('https://mystar-story.com/');
     }
   },
 
