@@ -11,11 +11,6 @@ module.exports = {
       });
 
       // 만들어진 해시태그id를 Photo 테이블에 UPDATE 한다
-      // const updatePhoto = await Photo.findOne({
-      //   where: { photoPath: photoPath },
-      // });
-      // updatePhoto.hashtagId = newHashtag.id;
-      // await updatePhoto.save();
       const addHashtag = await Photo.update(
         { hashtagId: newHashtag.id },
         { where: { photoPath: photoPath } }
