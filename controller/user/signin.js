@@ -67,11 +67,10 @@ module.exports = {
       }
     });
 
-    // createUser
+    // Create Google Oauth User
     const userData = User.findOrCreate({
       where:
       {
-        id: userInfo.data.id,
         nickname: userInfo.data.name,
       },
       defaults: {
@@ -91,7 +90,7 @@ module.exports = {
 
       res.status(200).json({ accessToken: tokens[1] });
 
-      res.redirect('https://mystar-story.com/');
+      //res.redirect('https://mystar-story.com/');
     }
   },
 
@@ -108,6 +107,7 @@ module.exports = {
     };
 
     let token = await axios.post(url, qs.stringify(form));
+
     let userInfo = await axios({
       method: "GET",
       url: `https://kapi.kakao.com/v2/user/me`,
@@ -116,6 +116,29 @@ module.exports = {
       }
     });
 
+    // Create Kakao Oauth User
+    const userData = User.findOrCreate({
+      where:
+      {
+        nickname: userInfo.data.nickname,
+      },
+      defaults: {
+        profilePath: userInfo.data.profile_image,
+        loginPlatformId: 3 // google
+      }
+    });
+
+    if (userData) {
+      const tokens = createJWT(userData.id);
+
+      res.cookie('refreshToken', tokens[0], {
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+      });
+    }
+
+    res.redirect('https://mystar-story.com');
 
   }
 }

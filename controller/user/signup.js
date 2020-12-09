@@ -8,10 +8,19 @@ module.exports = {
       res.status(422).send('정보를 다 입력해주세요');
     }
 
+    if (profilePath === null) {
+      profilePath = process.env.DEFAULT_IMG;
+    }
+
     const newUser = await User
       .findOrCreate({
         where: { email, nickname },
-        defaults: { mobile: mobile, password: password, loginPlatformId: loginPlatformId, profilePath: profilePath }
+        defaults: {
+          mobile: mobile,
+          password: password,
+          loginPlatformId: 1,
+          profilePath: profilePath
+        }
       });
 
     if (newUser) {
