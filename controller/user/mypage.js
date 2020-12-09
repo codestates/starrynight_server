@@ -5,15 +5,15 @@ const KEY = process.env.SECRET_KEY;
 module.exports = {
   info: async (req, res) => {
     // Production
-    const token = req.cookies.accessToken;
-	console.log(token);
+    const token = req.headers.authorization;
+
+    console.log('마이페이지입니다~!!', token);
+
     // 해당 토큰이 유효한지 판단
     const decode = jwt.verify(token, KEY);
-    console.log('토큰 디코딩 정보 : ', decode);
-
 
     if (decode) {
-      let userData = await User.findOne({ where: { id: 9 } });
+      let userData = await User.findOne({ where: { id: decode.id } });
 
       if (userData) {
         res.status(200).json({

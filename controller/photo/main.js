@@ -1,8 +1,10 @@
 module.exports = {
 	get: async (req, res) => {
-		console.log('여기는 메인페이지 API입니다');
-		console.log(req.headers);
-		res.sendStatus(200);
+		if (req.headers.authorization === undefined) {
+			res.status(404).json('토큰이 없습니다!!');
+		} else {
+			res.status(200).json(req.headers.authorization);
+		}
 	}
 };
 
