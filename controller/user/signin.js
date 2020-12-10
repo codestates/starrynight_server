@@ -67,28 +67,26 @@ module.exports = {
       }
     });
 
-    // Create Google Oauth User
+    /* ************ 구글 ************ */
+    // 이미 가입한 이력이 있는지 찾기
     const userData = await User.findOrCreate({
-      where:
-      {
+      where: {
         nickname: userInfo.data.name,
+        loginPlatformId: 2
       },
       defaults: {
-        profilePath: userInfo.data.picture,
-        loginPlatformId: 2 // google
+        profilePath: userInfo.data.picture
       }
     });
 
     if (userData) {
-      const tokens = createJWT(userData.id);
+      const tokens = await createJWT(userData.id);
 
       res.cookie('refreshToken', tokens[0], {
         httpOnly: true,
         sameSite: 'none',
         secure: true,
       });
-
-      //res.status(200).json({ accessToken: tokens[1] });
 
       res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
     }
@@ -97,7 +95,6 @@ module.exports = {
   kakao: async (req, res) => {
     const url = 'https://kauth.kakao.com/oauth/token';
     const code = req.query.code;
-    console.log(code);
     const form = {
       code: code,
       client_id: process.env.KAKAO_ID,
@@ -115,22 +112,21 @@ module.exports = {
         Authorization: `Bearer ${token.data.access_token}`
       }
     });
-console.log(`카카오 사용자 정보 : `,userInfo.data);
-    // Create Kakao Oauth User
+
+    /* ************ 카카오 ************ */
     const userData = await User.findOrCreate({
-      where:
-      {
-        nickname: userInfo.data.properties.nickname
+      where: {
+        nickname: userInfo.data.properties.nickname,
+        loginPlatformId: 3
       },
       defaults: {
-        profilePath: userInfo.data.properties.profile_image,
-        loginPlatformId: 3 // google
+        profilePath: userInfo.data.properties.profile_image
       }
     });
-console.log(`User 테이블에 추가한 사용자 최종 정보 : `,userData);
+
     if (userData) {
       const tokens = createJWT(userData.id);
-console.log(`토큰들 : `,tokens);
+
       res.cookie('refreshToken', tokens[0], {
         httpOnly: true,
         sameSite: 'none',
@@ -140,5 +136,6 @@ console.log(`토큰들 : `,tokens);
 
     res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
   }
+
 }
 
