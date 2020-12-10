@@ -78,7 +78,7 @@ module.exports = {
         profilePath: userInfo.data.picture
       }
     });
-console.log(userData);
+    console.log(userData);
     if (userData) {
       const tokens = await createJWT(userData[0].dataValues.id);
 
@@ -89,9 +89,9 @@ console.log(userData);
       });
 
       // res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
-    	res.redirect(`http://localhost:3000/?access_token=${tokens[1]}`);
+      res.redirect(`http://localhost:3000/?access_token=${tokens[1]}`);
     }
-	 
+
   },
 
   kakao: async (req, res) => {
@@ -127,7 +127,7 @@ console.log(userData);
     });
 
     if (userData) {
-      const tokens = createJWT(userData.id);
+      const tokens = createJWT(userData[0].dataValues.id);
 
       res.cookie('refreshToken', tokens[0], {
         httpOnly: true,
@@ -136,8 +136,8 @@ console.log(userData);
       });
     }
 
-   // res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
-	  res.redirect(`http://localhost:3000/?access_token=${tokens[1]}`);
+    // res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
+    res.redirect(`http://localhost:3000/?access_token=${tokens[1]}`);
   }
 
 }
