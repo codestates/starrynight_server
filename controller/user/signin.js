@@ -88,7 +88,7 @@ module.exports = {
         secure: true,
       });
 
-      // res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
+      //res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
       res.redirect(`http://localhost:3000/?access_token=${tokens[1]}`);
     }
 
@@ -125,19 +125,19 @@ module.exports = {
         profilePath: userInfo.data.properties.profile_image
       }
     });
-
+	  console.log(userData[0].dataValues.id);
     if (userData) {
-      const tokens = createJWT(userData[0].dataValues.id);
-
+      const tokens =await createJWT(userData[0].dataValues.id);
+console.log(tokens);
       res.cookie('refreshToken', tokens[0], {
         httpOnly: true,
         sameSite: 'none',
         secure: true,
       });
+	// res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
+	    res.redirect(`http://localhost:3000/?access_token=${tokens}`);
     }
 
-    // res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
-    res.redirect(`http://localhost:3000/?access_token=${tokens[1]}`);
   }
 
 }
