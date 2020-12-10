@@ -78,9 +78,9 @@ module.exports = {
         profilePath: userInfo.data.picture
       }
     });
-
+console.log(userData);
     if (userData) {
-      const tokens = await createJWT(userData.id);
+      const tokens = await createJWT(userData[0].dataValues.id);
 
       res.cookie('refreshToken', tokens[0], {
         httpOnly: true,
@@ -88,8 +88,10 @@ module.exports = {
         secure: true,
       });
 
-      res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
+      // res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
+    	res.redirect(`http://localhost:3000/?access_token=${tokens[1]}`);
     }
+	 
   },
 
   kakao: async (req, res) => {
@@ -134,7 +136,8 @@ module.exports = {
       });
     }
 
-    res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
+   // res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
+	  res.redirect(`http://localhost:3000/?access_token=${tokens[1]}`);
   }
 
 }
