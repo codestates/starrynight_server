@@ -5,7 +5,8 @@ const KEY = process.env.SECRET_KEY;
 module.exports = {
   post: async (req, res) => {
     try {
-      const { userToken, title, photoPath, location } = req.body;
+      const { title, photoPath, location } = req.body;
+      const userToken = req.headers.authorization;
 
       // Token을 decoding 한다
       let token = userToken;
