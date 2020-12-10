@@ -30,9 +30,6 @@ module.exports = {
       } else {
         const tokens = createJWT(userData.id);
 
-        console.log('로그인 (RefreshToken) : ', tokens[0]);
-        console.log('로그인 (AccessToken) : ', tokens[1]);
-
         res.cookie('refreshToken', tokens[0], {
           httpOnly: true,
           sameSite: 'none',
@@ -78,7 +75,7 @@ module.exports = {
         profilePath: userInfo.data.picture
       }
     });
-    console.log(userData);
+
     if (userData) {
       const tokens = await createJWT(userData[0].dataValues.id);
 
@@ -125,17 +122,17 @@ module.exports = {
         profilePath: userInfo.data.properties.profile_image
       }
     });
-	  console.log(userData[0].dataValues.id);
+
     if (userData) {
-      const tokens =await createJWT(userData[0].dataValues.id);
-console.log(tokens);
+      const tokens = await createJWT(userData[0].dataValues.id);
+
       res.cookie('refreshToken', tokens[0], {
         httpOnly: true,
         sameSite: 'none',
         secure: true,
       });
-	// res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
-	    res.redirect(`http://localhost:3000/?access_token=${tokens}`);
+      // res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
+      res.redirect(`http://localhost:3000/?access_token=${tokens}`);
     }
 
   }

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Reply extends Model {
     static associate(models) {
       Reply.belongsTo(models.Photo, {
-        foreignKey: 'id',
+        foreignKey: 'photoId',
         targetKey: 'id'
       });
     };
