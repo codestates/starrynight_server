@@ -11,7 +11,7 @@ module.exports = {
 
     // 해당 토큰이 유효한지 판단
     const decode = jwt.verify(token, KEY);
-    console.log(`디코딩된 토큰 정보 : `,decode);
+    console.log(`디코딩된 토큰 정보 : `, decode);
     if (decode) {
       let userData = await User.findOne({ where: { id: decode.id } });
 
@@ -21,7 +21,8 @@ module.exports = {
           password: '******',
           nickname: userData.nickname,
           mobile: userData.mobile,
-          profilePath: userData.profilePath
+          profilePath: userData.profilePath,
+          loginPlatformId: userData.loginPlatformId
         });
       } else {
         res.status(204).send(err);
