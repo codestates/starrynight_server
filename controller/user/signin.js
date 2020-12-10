@@ -131,8 +131,8 @@ module.exports = {
         sameSite: 'none',
         secure: true,
       });
-      // res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
-      res.redirect(`http://localhost:3000/?access_token=${tokens}`);
+       // res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
+       res.redirect(`http://localhost:3000/?access_token=${tokens[1]}`);
     }
 
   }
