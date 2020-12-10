@@ -6,7 +6,7 @@ module.exports = {
     let dummyPhotoIdnUsers = 1;
 
     for (let i = 1; i <= 10; i++) {
-      if (i % 2 === 0) {
+      if (i % 3 === 0) {
         dummyPhotoIdnUsers = 1;
       } else {
         dummyPhotoIdnUsers = 2;
