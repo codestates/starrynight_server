@@ -69,18 +69,13 @@ module.exports = {
 
     /* ************ 구글 ************ */
     // 이미 가입한 이력이 있는지 찾기
-    const findUser = await User.findOne({
-      where: { nickname: userInfo.data.name }
-    });
-
     const userData = await User.findOrCreate({
       where: {
         nickname: userInfo.data.name,
         loginPlatformId: 2
       },
       defaults: {
-        profilePath: userInfo.data.picture,
-        loginPlatformId: 2 // google
+        profilePath: userInfo.data.picture
       }
     });
 
@@ -119,18 +114,13 @@ module.exports = {
     });
 
     /* ************ 카카오 ************ */
-    const findUser = await User.findOne({
+    const userData = await User.findOrCreate({
       where: {
         nickname: userInfo.data.properties.nickname,
         loginPlatformId: 3
-      }
-    });
-
-    const userData = await User.findOrCreate({
-      where: { nickname: userInfo.data.properties.nickname },
+      },
       defaults: {
-        profilePath: userInfo.data.properties.profile_image,
-        loginPlatformId: 3 // kakao
+        profilePath: userInfo.data.properties.profile_image
       }
     });
 
