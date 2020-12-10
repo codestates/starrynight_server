@@ -68,7 +68,7 @@ module.exports = {
     });
 
     // Create Google Oauth User
-    const userData = User.findOrCreate({
+    const userData = await User.findOrCreate({
       where:
       {
         nickname: userInfo.data.name,
@@ -90,7 +90,7 @@ module.exports = {
 
       //res.status(200).json({ accessToken: tokens[1] });
 
-      res.redirect(`https://mystar-story.com/?access_token=${token[1]}`);
+      res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
     }
   },
 
@@ -115,22 +115,22 @@ module.exports = {
         Authorization: `Bearer ${token.data.access_token}`
       }
     });
-
+console.log(`카카오 사용자 정보 : `,userInfo.data);
     // Create Kakao Oauth User
-    const userData = User.findOrCreate({
+    const userData = await User.findOrCreate({
       where:
       {
-        nickname: userInfo.data.nickname,
+        nickname: userInfo.data.properties.nickname
       },
       defaults: {
-        profilePath: userInfo.data.profile_image,
+        profilePath: userInfo.data.properties.profile_image,
         loginPlatformId: 3 // google
       }
     });
-
+console.log(`User 테이블에 추가한 사용자 최종 정보 : `,userData);
     if (userData) {
       const tokens = createJWT(userData.id);
-
+console.log(`토큰들 : `,tokens);
       res.cookie('refreshToken', tokens[0], {
         httpOnly: true,
         sameSite: 'none',
@@ -138,7 +138,7 @@ module.exports = {
       });
     }
 
-    res.redirect(`https://mystar-story.com/?access_token=${token[1]}`);
+    res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
   }
 }
 
