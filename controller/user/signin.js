@@ -90,7 +90,7 @@ module.exports = {
 
       //res.status(200).json({ accessToken: tokens[1] });
 
-      res.redirect('https://mystar-story.com/');
+      res.redirect(`https://mystar-story.com/?access_token=${token[1]}`);
     }
   },
 
@@ -138,8 +138,7 @@ module.exports = {
       });
     }
 
-    res.redirect('https://mystar-story.com');
-
+    res.redirect(`https://mystar-story.com/?access_token=${token[1]}`);
   }
 }
 
