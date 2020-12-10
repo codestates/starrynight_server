@@ -30,9 +30,6 @@ module.exports = {
       } else {
         const tokens = createJWT(userData.id);
 
-        console.log('로그인 (RefreshToken) : ', tokens[0]);
-        console.log('로그인 (AccessToken) : ', tokens[1]);
-
         res.cookie('refreshToken', tokens[0], {
           httpOnly: true,
           sameSite: 'none',
@@ -67,20 +64,20 @@ module.exports = {
       }
     });
 
-    // Create Google Oauth User
-    const userData = User.findOrCreate({
-      where:
-      {
+    /* ************ 구글 ************ */
+    // 이미 가입한 이력이 있는지 찾기
+    const userData = await User.findOrCreate({
+      where: {
         nickname: userInfo.data.name,
+        loginPlatformId: 2
       },
       defaults: {
-        profilePath: userInfo.data.picture,
-        loginPlatformId: 2 // google
+        profilePath: userInfo.data.picture
       }
     });
 
     if (userData) {
-      const tokens = createJWT(userData.id);
+      const tokens = await createJWT(userData[0].dataValues.id);
 
       res.cookie('refreshToken', tokens[0], {
         httpOnly: true,
@@ -88,16 +85,15 @@ module.exports = {
         secure: true,
       });
 
-      //res.status(200).json({ accessToken: tokens[1] });
-
-      res.redirect('https://mystar-story.com/');
+      //res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
+      res.redirect(`http://localhost:3000/?access_token=${tokens[1]}`);
     }
+
   },
 
   kakao: async (req, res) => {
     const url = 'https://kauth.kakao.com/oauth/token';
     const code = req.query.code;
-    console.log(code);
     const form = {
       code: code,
       client_id: process.env.KAKAO_ID,
@@ -116,30 +112,30 @@ module.exports = {
       }
     });
 
-    // Create Kakao Oauth User
-    const userData = User.findOrCreate({
-      where:
-      {
-        nickname: userInfo.data.nickname,
+    /* ************ 카카오 ************ */
+    const userData = await User.findOrCreate({
+      where: {
+        nickname: userInfo.data.properties.nickname,
+        loginPlatformId: 3
       },
       defaults: {
-        profilePath: userInfo.data.profile_image,
-        loginPlatformId: 3 // google
+        profilePath: userInfo.data.properties.profile_image
       }
     });
 
     if (userData) {
-      const tokens = createJWT(userData.id);
+      const tokens = await createJWT(userData[0].dataValues.id);
 
       res.cookie('refreshToken', tokens[0], {
         httpOnly: true,
         sameSite: 'none',
         secure: true,
       });
+      // res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
+      res.redirect(`http://localhost:3000/?access_token=${tokens}`);
     }
 
-    res.redirect('https://mystar-story.com');
-
   }
+
 }
 
