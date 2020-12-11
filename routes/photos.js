@@ -53,5 +53,9 @@ router.post("/hashtager", photoController.hashtager.post);
 router.get("/:id", photoController.pickPhoto.get);
 router.patch("/:id/modify", photoController.modifyPhoto.patch);
 router.delete("/:id/delete", photoController.deletePhoto.delete);
+router.post("/makecomment", photoController.makeComment.post);
+router.post("/cancelcomment", photoController.cancelComment.post);
+router.post("/makelike", photoController.makeLike.post);
+router.post("/cancellike", photoController.cancelLike.post);
 
 module.exports = router;

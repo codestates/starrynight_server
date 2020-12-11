@@ -7,4 +7,8 @@ module.exports = {
   pickPhoto: require("./pickPhoto"),
   modifyPhoto: require("./modifyPhoto"),
   deletePhoto: require("./deletePhoto"),
+  makeComment: require("./makeComment"),
+  cancelComment: require("./cancelComment"),
+  makeLike: require("./makeLike"),
+  cancelLike: require("./cancelLike"),
 };
