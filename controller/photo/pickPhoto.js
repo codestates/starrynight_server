@@ -18,8 +18,6 @@ module.exports = {
       users.push(ele.commentId);
     });
 
-    // usersId = [...new Set(users)];
-
     for (let i = 0; i < users.length; i++) {
       let user = await User.findOne({ where: { id: users[i] } });
 
