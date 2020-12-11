@@ -52,7 +52,21 @@ module.exports = {
     }
   },
 
-  profile: (req, res) => {
-    res.status(200).send('반가워요 :) 여기는 프로필 수정 페이지입니다.');
+  profile: async (req, res) => {
+    const token = req.headers.authorization;
+    const decode = jwt.verify(token, KEY);
+
+    if (decode) {
+      const modifyProfile = await User.update(
+        { profilePath: req.file.location },
+        { where: { id: decode.id } }
+      );
+
+      if (modifyProfile) {
+        res.status(200).json({ profilePath: req.file.location });
+      } else {
+        res.status(404).send('유효하지 않은 사진입니다.');
+      }
+    }
   },
 }
