@@ -25,7 +25,7 @@ module.exports = {
         { where: { pickerId: decode.id } }
       );
 
-      // 좋아요 성공 시 success: true 값과 함께 댓글정보를 보내준다
+      // 좋아요 성공 시 success: true 값과 함께 좋아요 정보를 보내준다
       res.status(201).json({ ...newFavorite, success: true });
     } catch (err) {
       // 좋아요 실패 시 success: false 값을 보내준다
