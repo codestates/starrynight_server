@@ -2,23 +2,22 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+    let dummyHashtags = [];
+
+    for (let i = 1; i <= 10; i++) {
+      // subject, photoId
+      let hastagData = {
+        subject: `어딘가${i}`,
+        photoId: i,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+      dummyHashtags.push(hastagData);
+    }
+    return queryInterface.bulkInsert('HashTags', dummyHashtags, {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    await queryInterface.bulkDelete('HashTags', null, {});
   }
 };
