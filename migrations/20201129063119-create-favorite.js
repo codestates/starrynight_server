@@ -14,6 +14,9 @@ module.exports = {
       pickerId: {
         type: Sequelize.INTEGER
       },
+      favorite: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
