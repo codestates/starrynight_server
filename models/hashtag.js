@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   HashTag.init({
-    subject: DataTypes.STRING
+    subject: DataTypes.STRING,
+    photoId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'HashTag',

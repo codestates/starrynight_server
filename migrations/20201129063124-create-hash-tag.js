@@ -11,6 +11,9 @@ module.exports = {
       subject: {
         type: Sequelize.STRING
       },
+      photoId: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
