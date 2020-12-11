@@ -49,6 +49,7 @@ router.get("/", photoController.intro.get);
 router.get("/main", photoController.main.get);
 router.post("/addphoto", upload.single("file"), photoController.addPhoto.post);
 router.post("/savephoto", photoController.savePhoto.post);
+router.post("/saveprofilephoto", photoController.saveProfilePhoto.post);
 router.post("/hashtager", photoController.hashtager.post);
 router.get("/:id", photoController.pickPhoto.get);
 router.patch("/:id/modify", photoController.modifyPhoto.patch);
