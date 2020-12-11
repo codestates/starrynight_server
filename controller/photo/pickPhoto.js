@@ -55,7 +55,7 @@ module.exports = {
       photoPath: photoInfo.dataValues.photoPath,
       photoTitle: photoInfo.dataValues.photoTitle,
       writer: writer.dataValues.nickname,
-      wirterProfilePath: writer.dataValues.profilePath,
+      writerProfilePath: writer.dataValues.profilePath,
       replies: [...commentId]
     }
 
