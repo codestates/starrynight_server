@@ -26,8 +26,8 @@ module.exports = {
         { where: { comment: comment, commenterId: decode.id } }
       );
 
-      // 댓글 생성 성공 시 success: true 값과 함께 댓글정보를 보내준다
-      res.status(201).json({ ...newReply, success: true });
+      // 댓글 생성 성공 시 success: true 값을 보내준다
+      res.status(201).json({ success: true });
     } catch (err) {
       // 댓글 생성 실패 시 success: false 값을 보내준다
       res.status(500).json({ success: false });
