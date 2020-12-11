@@ -25,7 +25,6 @@ module.exports = {
       commentId[i].dataValues['nickname'] = user.dataValues.nickname;
     }
 
-    console.log(writer);
     datas = {
       id: photoInfo.dataValues.id,
       writer: writer.dataValues.nickname,
