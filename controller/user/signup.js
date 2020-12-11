@@ -25,7 +25,7 @@ module.exports = {
 
     let overlap = await findOverlap(email, nickname, mobile);
     console.log('판별 : ', overlap);
-    if (overlap) {
+    if (overlap === false) {
       const defaultProfilePath = process.env.DEFAULT_IMG;
 
       const newUser = await User
