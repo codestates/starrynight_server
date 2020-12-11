@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class HashTag extends Model {
     static associate(models) {
       HashTag.belongsTo(models.Photo, {
-        foreignKey: 'hashTagId',
+        foreignKey: 'photoId',
         targetKey: 'id'
       });
     }
