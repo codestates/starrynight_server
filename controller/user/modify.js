@@ -4,7 +4,7 @@ const KEY = process.env.SECRET_KEY;
 
 module.exports = {
   nickname: async (req, res) => {
-    const token = req.cookies.accessToken;
+    const token = req.headers.authorization;
     const decode = jwt.verify(token, KEY);
     const { nickname } = req.body;
 
@@ -21,7 +21,7 @@ module.exports = {
   },
 
   password: async (req, res) => {
-    const token = req.cookies.accessToken;
+    const token = req.headers.authorization;
     const decode = jwt.verify(token, KEY);
     const { password } = req.body;
     console.log(req);
@@ -37,7 +37,7 @@ module.exports = {
   },
 
   mobile: async (req, res) => {
-    const token = req.cookies.accessToken;
+    const token = req.headers.authorization;
     const decode = jwt.verify(token, KEY);
     const { mobile } = req.body;
 

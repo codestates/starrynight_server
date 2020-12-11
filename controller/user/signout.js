@@ -3,7 +3,7 @@ const KEY = process.env.SECRET_KEY;
 
 module.exports = {
   post: (req, res) => {
-    const token = req.cookies.accessToken;
+    const token = req.headers.authorization;
     const decode = jwt.verify(token, KEY);
 
     if (decode) {
