@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       Photo.hasMany(models.HashTag, {
-        foreignKey: "hashTagId",
+        foreignKey: "photoId",
         sourceKey: "id",
       });
 

@@ -6,13 +6,14 @@ module.exports = (sequelize, DataTypes) => {
   class HashTag extends Model {
     static associate(models) {
       HashTag.belongsTo(models.Photo, {
-        foreignKey: 'hashTagId',
+        foreignKey: 'photoId',
         targetKey: 'id'
       });
     }
   };
   HashTag.init({
-    subject: DataTypes.STRING
+    subject: DataTypes.STRING,
+    photoId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'HashTag',

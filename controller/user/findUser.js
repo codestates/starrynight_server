@@ -1,5 +1,7 @@
 const { User } = require('../../models');
 const nodeMailer = require('nodemailer');
+const PASS = process.env.PASS;
+const USER = process.env.USER;
 
 module.exports = {
   email: async (req, res) => {
@@ -18,11 +20,11 @@ module.exports = {
     const { email, mobile } = req.body;
 
     // 연락처와 이메일을 받아 저장된 DB와 비교
-    const findUser = User.findOne({ where: { email: email, mobile: mobile } });
+    const findUser = await User.findOne({ where: { email: email, mobile: mobile } });
 
     if (findUser) {
       // 비밀번호를 변경(update)후 이메일로 변경된 비밀번호를 발송
-      const updatePassword = User.update(
+      const updatePassword = await User.update(
         { password: 1231 },
         { where: { id: findUser.id } }
       );
@@ -30,8 +32,8 @@ module.exports = {
       const transporter = nodeMailer.createTransport({
         service: 'gmail',
         auth: {
-          user: process.env.USER,
-          pass: process.env.PASS
+          user: 'team2.starrynight@gmail.com',
+          pass: PASS,
         }
       });
 
