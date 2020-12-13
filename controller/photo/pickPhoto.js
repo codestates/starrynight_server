@@ -36,6 +36,8 @@ module.exports = {
     let users = [];
     let datas = {};
 
+    const hashtag = await HashTag.findAll({ where: { photoId: id } });
+
     // 타겟 사진에 댓글을 단 Users
     commentId.forEach(ele => {
       users.push(ele.commentId);
@@ -54,8 +56,10 @@ module.exports = {
       id: photoInfo.dataValues.id,
       photoPath: photoInfo.dataValues.photoPath,
       photoTitle: photoInfo.dataValues.photoTitle,
+      location: photoInfo.dataValues.location,
       writer: writer.dataValues.nickname,
       writerProfilePath: writer.dataValues.profilePath,
+      hashtags: [...hashtag],
       replies: [...commentId]
     }
 
