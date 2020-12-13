@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      // define association here
       Photo.hasMany(models.Reply, {
         foreignKey: "id",
         sourceKey: "id",
@@ -28,7 +29,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       userId: DataTypes.INTEGER,
       photoTitle: DataTypes.STRING,
-      hashtagId: DataTypes.INTEGER,
       photoPath: DataTypes.STRING,
       location: DataTypes.STRING,
     },

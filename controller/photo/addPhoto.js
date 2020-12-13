@@ -1,7 +1,7 @@
 module.exports = {
   post: async (req, res) => {
     try {
-      console.log("Dropdown된 사진정보: ", req.file);
+      console.log("업로드 대기 중인 사진정보: ", req.file);
 
       let payLoad = {
         success: true,
