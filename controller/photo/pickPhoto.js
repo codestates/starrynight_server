@@ -36,7 +36,10 @@ module.exports = {
     let users = [];
     let datas = {};
 
-    const hashtag = await HashTag.findAll({ where: { photoId: id } });
+    const hashtag = await HashTag.findAll({
+      where: { photoId: id },
+      attributes: ['subject']
+    });
 
     // 타겟 사진에 댓글을 단 Users
     commentId.forEach(ele => {
