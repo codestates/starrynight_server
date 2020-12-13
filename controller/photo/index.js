@@ -3,7 +3,6 @@ module.exports = {
   main: require("./main"),
   addPhoto: require("./addPhoto"),
   savePhoto: require("./savePhoto"),
-  saveProfilePhoto: require("./saveProfilePhoto"),
   hashtager: require("./hashtager"),
   pickPhoto: require("./pickPhoto"),
   modifyPhoto: require("./modifyPhoto"),

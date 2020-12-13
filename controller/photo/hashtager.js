@@ -5,18 +5,18 @@ module.exports = {
     try {
       const { hashtag, photoPath } = req.body;
 
-      // 먼저 Photo 테이블에 해당 해시태그 내용을 INSERT 한다
-      const newHashtag = await HashTag.create({
-        subject: hashtag,
-      });
+      // 해시태그와 연관되는 사진을 findOne 한다
+      const photo = await Photo.findOne({ where: { photoPath: photoPath } });
 
-      // 만들어진 해시태그id를 Photo 테이블에 UPDATE 한다
-      const addHashtag = await Photo.update(
-        { hashtagId: newHashtag.id },
-        { where: { photoPath: photoPath } }
-      );
+      // 입력된 해시태그들을 차례로 HashTags 테이블과 Photos 테이블에 모두 INSERT & UPDATE 한다
+      for (let i = 0; i < hashtag.length; i++) {
+        let updates = await HashTag.create({
+          subject: hashtag[i],
+          photoId: photo.id,
+        });
+      }
 
-      res.status(201).json({ ...addHashtag, success: true });
+      res.status(201).json({ success: true });
     } catch (err) {
       res.status(500).json({ success: false });
     }

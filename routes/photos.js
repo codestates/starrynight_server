@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
 const { photoController } = require("../controller");
+const multer = require("multer");
 
 // S3 객체 활용을 위해 aws-sdk 로드
 const multerS3 = require("multer-s3");
@@ -49,7 +49,6 @@ router.get("/", photoController.intro.get);
 router.get("/main", photoController.main.get);
 router.post("/addphoto", upload.single("file"), photoController.addPhoto.post);
 router.post("/savephoto", photoController.savePhoto.post);
-router.post("/saveprofilephoto", photoController.saveProfilePhoto.post);
 router.post("/hashtager", photoController.hashtager.post);
 router.get("/:id", photoController.pickPhoto.get);
 router.patch("/:id/modify", photoController.modifyPhoto.patch);
