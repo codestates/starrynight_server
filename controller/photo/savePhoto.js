@@ -21,8 +21,8 @@ module.exports = {
           photoPath: photoPath,
           location: location,
         });
-        console.log(newPhoto);
-        res.status(201).json({ ...newPhoto, success: true });
+        console.log("DB 저장완료 ***", newPhoto);
+        res.status(201).json({ success: true });
       }
     } catch (err) {
       res.status(500).send(err);
