@@ -6,7 +6,8 @@ module.exports = {
 			{ attributes: ['id', 'photoPath'] }
 		);
 
-		res.status(200).json(photos);
+		let reversePhotos = photos.reverse();
+		res.status(200).json(reversePhotos);
 	}
 };
 
