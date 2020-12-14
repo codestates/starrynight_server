@@ -1,5 +1,9 @@
+const { Photo } = require('../../models');
+const jwt = require('jsonwebtoken');
+
 module.exports = {
   delete: (req, res) => {
-    res.status(200).send('반가워요 :) 여기는 사진 삭제 페이지입니다.');
+    const token = req.headers.authorization;
+    const decode = jwt.verify(token, process.env.SECRET_KEY);
   },
 }

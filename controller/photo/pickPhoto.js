@@ -1,28 +1,6 @@
 const { User, Photo, Reply, HashTag, Favorite } = require('../../models');
 const jwt = require('jsonwebtoken');
-/**
- * 사진을 클릭했을때 
- *  header에 authorization || refreshToken 데이터가 있다면 true, 없다면 false
- *  조건을 기준으로 favorite 설정
- * 
- * Response {
- *  id : id
- *  photoPath : photoPath,
- *  photoTitle : photoTitle,
- *  writer : nickname,
- *  writer : profilePath,
- *  favorite : true or false,
- *  hashtags : [],
- *  replies : [
- *    {
- *      id : commentId,
- *      nickname : nickname,
- *      commenterProfilePath : profilePath
- *      comment : comment,
- *    } , ...
- *  ]
- * }
- */
+
 module.exports = {
   get: async (req, res) => {
     const id = req.url.split('/')[1];
