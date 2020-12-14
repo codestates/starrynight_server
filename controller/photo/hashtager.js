@@ -9,7 +9,7 @@ module.exports = {
       const photo = await Photo.findOne({ where: { photoPath: photoPath } });
 
       // 입력된 해시태그들을 차례로 HashTags 테이블과 Photos 테이블에 모두 INSERT & UPDATE 한다
-      for (let i = 0; i < hashtag.length; i++) {
+      for (let i = 0; i < hashtag.length - 1; i++) {
         let updates = await HashTag.create({
           subject: hashtag[i],
           photoId: photo.id,

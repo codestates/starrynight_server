@@ -9,9 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // define association here
       Photo.hasMany(models.Reply, {
-        foreignKey: "id",
+        foreignKey: "photoId",
+        sourceKey: "id",
+      });
+
+      Photo.hasMany(models.Favorite, {
+        foreignKey: "photoId",
         sourceKey: "id",
       });
 
