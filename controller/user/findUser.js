@@ -7,10 +7,19 @@ module.exports = {
   email: async (req, res) => {
     // 연락처로 id로 이메일 찾기
     const { mobile } = req.body;
-    const findUser = User.findOne({ where: { mobile: mobile } });
+    const findUser = await User.findOne({
+      where: { mobile: mobile },
+      attributes: ['email', 'createdAt']
+    });
+
+
+    console.log(`${findUser.createdAt.getFullYear()}.${findUser.createdAt.getMonth()}.${findUser.createdAt.getDate()}`);
 
     if (findUser) {
-      res.status(200).json(`귀하의 이메일은 ${findUser.email} 입니다.`);
+      res.status(200).json({
+        email: findUser.email,
+        createdAt: `${findUser.createdAt.getFullYear()}.${findUser.createdAt.getMonth()}.${findUser.createdAt.getDate()}`
+      });
     } else {
       res.status(404).send('연락처를 정확히 입력해주세요.');
     }
