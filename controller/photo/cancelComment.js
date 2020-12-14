@@ -15,13 +15,13 @@ module.exports = {
 
       // 인스턴스들 중 사용자가 취소하고자 하는 좋아요를 확인한다
       const wasReplied = await Reply.findOne({
-        where: { commenterId: decode.id, comment: comment },
+        where: { writerId: decode.id, comment: comment },
       });
 
       // 댓글정보를 null로 초기화한다
       const delReply = await wasReplied.update(
         { photoId: null, commentId: null, comment: null },
-        { where: { commenterId: wasReplied.pickerId, comment: comment } }
+        { where: { writerId: wasReplied.writerId, comment: comment } }
       );
 
       // 댓글삭제 성공 시 success: true 값을 보내준다

@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("Favorites", {
+    await queryInterface.createTable("Replies", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,12 +12,12 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      pickerId: {
+      writerId: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      favorite: {
-        type: Sequelize.BOOLEAN,
+      comment: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -30,6 +30,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("Favorites");
+    await queryInterface.dropTable("Replies");
   },
 };
