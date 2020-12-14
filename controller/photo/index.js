@@ -8,6 +8,7 @@ module.exports = {
   modifyPhoto: require("./modifyPhoto"),
   deletePhoto: require("./deletePhoto"),
   makeComment: require("./makeComment"),
+  modifyComment: require("./modifyComment"),
   cancelComment: require("./cancelComment"),
   makeLike: require("./makeLike"),
   cancelLike: require("./cancelLike"),
