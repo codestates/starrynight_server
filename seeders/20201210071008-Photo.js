@@ -16,7 +16,6 @@ module.exports = {
       let photoData = {
         userId: dummyUser,
         photoTitle: `Test Photo${i}`,
-        hashtagId: i,
         photoPath: `https://s3.ap-northeast-2.amazonaws.com/mystar-story.com/uploadPhotos/img${i}.jpg`,
         location: `한국의 어딘가 ${i}`,
         createdAt: new Date(),

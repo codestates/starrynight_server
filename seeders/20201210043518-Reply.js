@@ -13,7 +13,7 @@ module.exports = {
       }
       let commentData = {
         photoId: dummyPhotoIdnUsers,
-        commentId: dummyPhotoIdnUsers,
+        writerId: dummyPhotoIdnUsers,
         comment: `멋져요!! ${i}`,
         createdAt: new Date(),
         updatedAt: new Date()
