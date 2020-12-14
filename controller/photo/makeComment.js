@@ -16,14 +16,14 @@ module.exports = {
       // 새 댓글 인스턴스를 만든다
       const protoReply = await Reply.create({
         comment: comment,
-        commenterId: decode.id,
+        writerId: decode.id,
       });
 
       // 만들어진 댓글 인스턴스에 사진정보(photoId) 값을 추가한다
       const photo = await Photo.findOne({ where: { photoPath: photoPath } });
       const newReply = await protoReply.update(
         { photoId: photo.id },
-        { where: { comment: comment, commenterId: decode.id } }
+        { where: { comment: comment, writerId: decode.id } }
       );
 
       // 댓글 생성 성공 시 success: true 값을 보내준다
