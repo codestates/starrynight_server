@@ -14,7 +14,7 @@ module.exports = {
     if (findUser !== null) {
       res.status(200).json({
         email: findUser.email,
-        createdAt: `${findUser.createdAt.getFullYear()}.${findUser.createdAt.getMonth()}.${findUser.createdAt.getDate()}`
+        createdAt: `${findUser.createdAt.getFullYear()}.${findUser.createdAt.getMonth() + 1}.${findUser.createdAt.getDate()}`
       });
     } else {
       res.status(404).send('연락처를 정확히 입력해주세요.');
