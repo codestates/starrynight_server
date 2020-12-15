@@ -7,7 +7,7 @@ module.exports = {
     const token = req.headers.authorization;
     const decode = jwt.verify(token, KEY);
     const { nickname } = req.body;
-
+console.log(req.cookies.refreshToken);
     const modifyNickname = await User.update(
       { nickname: nickname },
       { where: { id: decode.id } }
