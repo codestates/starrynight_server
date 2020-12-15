@@ -14,7 +14,7 @@ module.exports = {
 
 
     console.log(`${findUser.createdAt.getFullYear()}.${findUser.createdAt.getMonth()}.${findUser.createdAt.getDate()}`);
-
+console.log('찾은 유저 정보', findUser);
     if (findUser) {
       res.status(200).json({
         email: findUser.email,
