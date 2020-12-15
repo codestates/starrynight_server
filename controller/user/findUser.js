@@ -30,7 +30,7 @@ module.exports = {
     if (findUser) {
       // 비밀번호를 변경(update)후 이메일로 변경된 비밀번호를 발송
       const updatePassword = await User.update(
-        { password: 1231 },
+        { password: '$*GJ93fj(v_#8g1s' },
         { where: { id: findUser.id } }
       );
 
@@ -46,7 +46,10 @@ module.exports = {
         from: process.env.USER,
         to: findUser.email,
         subject: '[Starry Night] 비밀번호 찾기에 대한 메일입니다.',
-        text: '비밀번호가 : 1231 로 변경되었습니다.'
+        html:
+          `<h1>비밀번호 안내 메세지입니다 :)</h1>
+          <div>패스워드가<span style="font-weight: 600;" >$*GJ93fj(v_#8g1s</span> 으로 변경되었습니다.</div>
+          <div>로그인하신 후 <span style="font-weight: 600;">반드시</span> 비밀번호를 변경해주시길 바랍니다!</div>`
       };
 
       transporter.sendMail(mailOptions, (err, info) => {
