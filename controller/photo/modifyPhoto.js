@@ -7,10 +7,6 @@ module.exports = {
     const decode = jwt.verify(token, process.env.SECRET_KEY);
     const { hashtags, id } = req.body;
 
-    for (let i = 0; i < hashtags.length; i++) {
-      console.log(hashtags[i]);
-    }
-
     if (decode) {
       //해당 사진에 기존 HashTag Subject가 있는지 Check
 
@@ -19,8 +15,6 @@ module.exports = {
           where: { subject: hashtags[i] },
           defaults: { photoId: id }
         });
-
-        console.log(findHashTag);
       }
 
       //업데이트가 완료되었다면, 해당 사진의 이전 HashTag Subject를 찾아서 없앤다.
@@ -28,8 +22,6 @@ module.exports = {
         where: { photoId: id },
         attributes: ['subject']
       });
-
-      console.log('모든 해시태그 : ', allHashTags);
 
       for (let i = 0; i < allHashTags.length; i++) {
         let savedSubject = hashtags.includes(allHashTags[i].dataValues.subject);

@@ -31,8 +31,7 @@ module.exports = {
 
       // 댓글에 해당 유저의 닉네임을 삽입
       writerId[i].dataValues["nickname"] = user.dataValues.nickname;
-      writerId[i].dataValues["commenterProfilePath"] =
-        user.dataValues.profilePath;
+      writerId[i].dataValues["commenterProfilePath"] = user.dataValues.profilePath;
       writerId[i].dataValues["date"] = user.dataValues.createdAt;
     }
 
