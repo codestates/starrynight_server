@@ -7,15 +7,11 @@ module.exports = {
   email: async (req, res) => {
     // 연락처로 id로 이메일 찾기
     const { mobile } = req.body;
-    const findUser = await User.findOne({
-      where: { mobile: mobile },
-      attributes: ['email', 'createdAt']
-    });
+    const findUser = await User.findOne({ where: { mobile: mobile } });
 
+    console.log('찾은 유저 정보', findUser);
 
-    console.log(`${findUser.createdAt.getFullYear()}.${findUser.createdAt.getMonth()}.${findUser.createdAt.getDate()}`);
-console.log('찾은 유저 정보', findUser);
-    if (findUser) {
+    if (findUser !== null) {
       res.status(200).json({
         email: findUser.email,
         createdAt: `${findUser.createdAt.getFullYear()}.${findUser.createdAt.getMonth()}.${findUser.createdAt.getDate()}`
