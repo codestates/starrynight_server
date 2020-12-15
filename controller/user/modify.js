@@ -2,12 +2,25 @@ const { User } = require('../../models');
 const jwt = require('jsonwebtoken');
 const KEY = process.env.SECRET_KEY;
 
+function findAuthorized(res, acc, ref) {
+  // 모든 토큰이 없을 경우
+  if (!acc && !ref) {
+    res.status(401).send('다시 로그인 해주세요');
+  } else {
+    if (acc) {
+      return acc;
+    } else {
+      return ref;
+    }
+  }
+}
+
 module.exports = {
   nickname: async (req, res) => {
-    const token = req.headers.authorization;
+    const token = findAuthorized(res, req.headers.authorization, req.cookies.refreshToken);
     const decode = jwt.verify(token, KEY);
     const { nickname } = req.body;
-console.log(req.cookies.refreshToken);
+
     const modifyNickname = await User.update(
       { nickname: nickname },
       { where: { id: decode.id } }
@@ -21,7 +34,7 @@ console.log(req.cookies.refreshToken);
   },
 
   password: async (req, res) => {
-    const token = req.headers.authorization;
+    const token = findAuthorized(res, req.headers.authorization, req.cookies.refreshToken);
     const decode = jwt.verify(token, KEY);
     const { password } = req.body;
 
@@ -36,7 +49,7 @@ console.log(req.cookies.refreshToken);
   },
 
   mobile: async (req, res) => {
-    const token = req.headers.authorization;
+    const token = findAuthorized(res, req.headers.authorization, req.cookies.refreshToken);
     const decode = jwt.verify(token, KEY);
     const { mobile } = req.body;
 
@@ -53,7 +66,7 @@ console.log(req.cookies.refreshToken);
   },
 
   profile: async (req, res) => {
-    const token = req.headers.authorization;
+    const token = findAuthorized(res, req.headers.authorization, req.cookies.refreshToken);
     const decode = jwt.verify(token, KEY);
 
     if (decode) {
