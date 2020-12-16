@@ -13,7 +13,8 @@ module.exports = {
       const deleteHashTag = await HashTag.destroy({ where: { photoId: id } });
       const deleteFavorite = await Favorite.destroy({ where: { photoId: id } });
       const deleteReply = await Reply.destroy({ where: { photoId: id } });
-console.log('사진 삭제 응답 : ',deletePhoto);
+
+      console.log('사진 삭제 응답 : ',deletePhoto);
 	    console.log('해시태그 삭제 응답 : ',deleteHashTag);
 	    console.log('좋아요 삭제 응답 : ',deleteFavorite);
 	    console.log('댓글 삭제 응답 : ',deleteReply);
