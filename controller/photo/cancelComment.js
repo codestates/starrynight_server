@@ -17,15 +17,16 @@ module.exports = {
       const wasReplied = await Reply.findOne({
         where: { writerId: decode.id, comment: comment, photoId: photoId },
       });
-
+console.log(wasReplied);
       // 댓글정보를 삭제한다
-      const delReply = await Reply.destory({
+      const delReply = await Reply.destroy({
         where: {
           writerId: wasReplied.dataValues.writerId,
           comment: wasReplied.dataValues.comment,
           photoId: wasReplied.dataValues.photoId,
         },
       });
+	    console.log(delReply);
 
       // 댓글삭제 성공 시 success: true 값을 보내준다
       res.status(201).json({ ...delReply, success: true });
