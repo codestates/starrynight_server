@@ -17,7 +17,7 @@ module.exports = {
       const wasReplied = await Reply.findOne({
         where: { writerId: decode.id, comment: comment, photoId: photoId },
       });
-console.log(wasReplied);
+      console.log(wasReplied);
       // 댓글정보를 삭제한다
       const delReply = await Reply.destroy({
         where: {
@@ -26,10 +26,10 @@ console.log(wasReplied);
           photoId: wasReplied.dataValues.photoId,
         },
       });
-	    console.log(delReply);
+      console.log(delReply);
 
       // 댓글삭제 성공 시 success: true 값을 보내준다
-      res.status(201).json({ ...delReply, success: true });
+      res.status(201).json({ success: true });
     } catch (err) {
       // 댓글 생성 실패 시 success: false 값을 보내준다
       res.status(500).json({ success: false });
