@@ -1,4 +1,4 @@
-const { Reply, Photo } = require("../../models");
+const { Reply } = require("../../models");
 const jwt = require("jsonwebtoken");
 const KEY = process.env.SECRET_KEY;
 
@@ -22,7 +22,7 @@ module.exports = {
           photoId: photoId,
         },
       });
-      console.log(wasReplied);
+
       // 댓글정보를 삭제한다
       const delReply = await Reply.destroy({
         where: {
