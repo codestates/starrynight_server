@@ -21,9 +21,9 @@ module.exports = {
       // 댓글정보를 삭제한다
       const delReply = await Reply.destory({
         where: {
-          writerId: wasReplied.writerId,
-          comment: wasReplied.comment,
-          photoId: wasReplied.photoId,
+          writerId: wasReplied.dataValues.writerId,
+          comment: wasReplied.dataValues.comment,
+          photoId: wasReplied.dataValues.photoId,
         },
       });
 

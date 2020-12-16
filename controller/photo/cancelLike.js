@@ -20,7 +20,10 @@ module.exports = {
 
       // 사진정보(photoId)를 삭제한다
       const cancelLike = await Favorite.destroy({
-        where: { pickerId: wasFavor.pickerId, photoId: wasFavor.id },
+        where: {
+          pickerId: wasFavor.dataValues.pickerId,
+          photoId: wasFavor.dataValues.id,
+        },
       });
 
       // 좋아요취소 성공 시 success: true 값과 함께 좋아요취소 정보를 보내준다
