@@ -18,9 +18,17 @@ module.exports = {
         where: { writerId: decode.id, comment: comment },
       });
 
+      const photo = await Reply.findOne({
+        where: { id: wasReplied.photoId },
+      });
+
       // 댓글정보를 null로 초기화한다
       const delReply = await Reply.destory({
-        where: { writerId: wasReplied.writerId, comment: comment },
+        where: {
+          writerId: wasReplied.writerId,
+          comment: comment,
+          photoId: photo.id,
+        },
       });
 
       // 댓글삭제 성공 시 success: true 값을 보내준다
