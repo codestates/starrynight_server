@@ -19,7 +19,7 @@ module.exports = {
       });
 
       // 사진정보(photoId)를 null로 초기화한다
-      const cancelLike = await wasFavor.update(
+      const cancelLike = await Favorite.update(
         { photoId: null },
         { where: { pickerId: wasFavor.pickerId } }
       );
