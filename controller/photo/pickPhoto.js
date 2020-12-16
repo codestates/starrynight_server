@@ -7,7 +7,7 @@ module.exports = {
     const photoInfo = await Photo.findOne({ where: { id: id } }); // hasttagId를 id로 변경
     const writerId = await Reply.findAll({
       where: { photoId: id },
-      attributes: ["writerId", "comment"],
+      attributes: ["id", "writerId", "comment", "createdAt"],
     });
 
     let writer = await User.findOne({
@@ -26,13 +26,19 @@ module.exports = {
       users.push(ele.writerId);
     });
 
+    // 시간 포맷팅
+    for(let i = 0; i < writerId.length; i++) {
+      let time = writerId[i].dataValues["createdAt"];
+
+      writerId[i].dataValues["date"] = `${time.getFullYear()}.${time.getMonth() + 1}.${time.getDate()}`;
+    }
+
     for (let i = 0; i < users.length; i++) {
       let user = await User.findOne({ where: { id: users[i] } });
 
       // 댓글에 해당 유저의 닉네임을 삽입
       writerId[i].dataValues["nickname"] = user.dataValues.nickname;
       writerId[i].dataValues["commenterProfilePath"] = user.dataValues.profilePath;
-      writerId[i].dataValues["date"] = `${user.dataValues.createdAt.getFullYear()}.${user.dataValues.createdAt.getMonth() + 1}.${user.dataValues.createdAt.getDate()}`
     }
 
     datas = {
