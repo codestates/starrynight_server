@@ -18,9 +18,13 @@ module.exports = {
         where: { pickerId: decode.id },
       });
 
-      // 사진정보(photoId)를 null로 초기화한다
+      const photo = await Photo.findOne({
+        where: { id: wasFavor.photoId },
+      });
+
+      // 사진정보(photoId)를 삭제한다
       const cancelLike = await Favorite.destroy({
-        where: { pickerId: wasFavor.pickerId },
+        where: { pickerId: wasFavor.pickerId, photoId: photo.id },
       });
 
       // 좋아요취소 성공 시 success: true 값과 함께 좋아요취소 정보를 보내준다
