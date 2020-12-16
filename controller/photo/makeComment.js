@@ -23,7 +23,12 @@ module.exports = {
       const photo = await Photo.findOne({ where: { photoPath: photoPath } });
       const newReply = await Photo.update(
         { photoId: photo.id },
-        { where: { comment: comment, writerId: decode.id } }
+        {
+          where: {
+            comment: protoReply.dataValues.comment,
+            writerId: protoReply.dataValues.writerId,
+          },
+        }
       );
 
       // 댓글 생성 성공 시 success: true 값을 보내준다
