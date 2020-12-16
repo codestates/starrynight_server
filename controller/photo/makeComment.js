@@ -14,25 +14,15 @@ module.exports = {
       let decode = jwt.verify(token, KEY);
 
       // 새 댓글 인스턴스를 만든다
-      const protoReply = await Reply.create({
+      const photo = await Photo.findOne({ where: { photoPath: photoPath } });
+      const newReply = await Reply.create({
         comment: comment,
         writerId: decode.id,
+        photoId: photo.id,
       });
 
-      // 만들어진 댓글 인스턴스에 사진정보(photoId) 값을 추가한다
-      const photo = await Photo.findOne({ where: { photoPath: photoPath } });
-      const newReply = await Photo.update(
-        { photoId: photo.id },
-        {
-          where: {
-            comment: protoReply.dataValues.comment,
-            writerId: protoReply.dataValues.writerId,
-          },
-        }
-      );
-
       // 댓글 생성 성공 시 success: true 값을 보내준다
-      res.status(201).json({ success: true });
+      res.status(201).json({ ...newReply, success: true });
     } catch (err) {
       // 댓글 생성 실패 시 success: false 값을 보내준다
       res.status(500).json({ success: false });
