@@ -19,7 +19,7 @@ module.exports = {
       });
 
       // 댓글정보를 null로 초기화한다
-      const delReply = await wasReplied.update(
+      const delReply = await Reply.update(
         { photoId: null, commentId: null, comment: null },
         { where: { writerId: wasReplied.writerId, comment: comment } }
       );
