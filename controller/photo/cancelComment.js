@@ -19,10 +19,9 @@ module.exports = {
       });
 
       // 댓글정보를 null로 초기화한다
-      const delReply = await Reply.update(
-        { photoId: null, comment: null },
-        { where: { writerId: wasReplied.writerId, comment: comment } }
-      );
+      const delReply = await Reply.destory({
+        where: { writerId: wasReplied.writerId, comment: comment },
+      });
 
       // 댓글삭제 성공 시 success: true 값을 보내준다
       res.status(201).json({ success: true });

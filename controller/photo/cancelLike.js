@@ -19,10 +19,9 @@ module.exports = {
       });
 
       // 사진정보(photoId)를 null로 초기화한다
-      const cancelLike = await Favorite.update(
-        { photoId: null },
-        { where: { pickerId: wasFavor.pickerId } }
-      );
+      const cancelLike = await Favorite.destroy({
+        where: { pickerId: wasFavor.pickerId },
+      });
 
       // 좋아요취소 성공 시 success: true 값과 함께 좋아요취소 정보를 보내준다
       res.status(201).json({ ...cancelLike, success: true });
