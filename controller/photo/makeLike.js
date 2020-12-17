@@ -43,7 +43,7 @@ module.exports = {
           );
         }
       }
-      res.status(201).json("좋아요 눌렀습니다 :)");
+      res.status(201).json("좋아요를 눌렀습니다 :)");
     } catch (err) {
       res.status(500).send("실패입니다");
     }
