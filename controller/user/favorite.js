@@ -17,7 +17,7 @@ function findAuthorized(res, acc, ref) {
 module.exports = {
   get: async (req, res) => {
     const token = findAuthorized(res, req.headers.authorization, req.cookies.refreshToken);
-    const decode = jwt.verify(token, KEY);
+    const decode = jwt.verify(token, process.env.SECRET_KEY);
     let result = [];
 
     if (decode) {

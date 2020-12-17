@@ -18,7 +18,12 @@ const findOverlap = async function (...args) {
 module.exports = {
   post: async (req, res) => {
     const { email, nickname, mobile, password, loginPlatformId } = req.body;
-    const defaultProfilePath = req.file.location || process.env.DEFAULT_IMG;
+
+	     if(!req.file) {
+      const defaultProfile = req.file.location;
+    } else {
+      const defaultProfile = process.env.DEFAULT_IMG;
+    }
 
     if (!email || !nickname || !mobile || !password || !loginPlatformId) {
       res.status(422).send('정보를 다 입력해주세요');
