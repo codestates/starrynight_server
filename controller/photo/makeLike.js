@@ -14,19 +14,11 @@ module.exports = {
       let decode = jwt.verify(token, KEY);
 
       // 새 좋아요 인스턴스를 만든다
-      const protoFavorite = await Favorite.create({
+      const newFavorite = await Favorite.create({
+        photoId: photoId,
         pickerId: decode.id,
+        favorite: true,
       });
-
-      // 만들어진 좋아요 인스턴스에 사진정보(photoId) 값을 추가한다
-      const newFavorite = await Favorite.update(
-        { photoId: photoId },
-        {
-          where: {
-            pickerId: protoFavorite.dataValues.pickerId,
-          },
-        }
-      );
 
       // 좋아요 성공 시 success: true 값과 함께 좋아요 정보를 보내준다
       res.status(201).json({ success: true });

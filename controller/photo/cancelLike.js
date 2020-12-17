@@ -1,4 +1,4 @@
-const { Favorite, Photo } = require("../../models");
+const { Favorite } = require("../../models");
 const jwt = require("jsonwebtoken");
 const KEY = process.env.SECRET_KEY;
 
@@ -19,12 +19,22 @@ module.exports = {
       });
 
       // 사진정보(photoId)를 삭제한다
-      const cancelLike = await Favorite.destroy({
-        where: {
-          pickerId: wasFavor.dataValues.pickerId,
-          photoId: wasFavor.dataValues.id,
-        },
-      });
+      // const cancelLike = await Favorite.destroy({
+      //   where: {
+      //     pickerId: wasFavor.dataValues.pickerId,
+      //     photoId: wasFavor.dataValues.id,
+      //   },
+      // });
+      const cancelLike = await Favorite.update(
+        { favorite: false },
+        {
+          where: {
+            id: wasFavor.dataValues.id,
+            pickerId: wasFavor.dataValues.pickerId,
+            photoId: wasFavor.dataValues.photoId,
+          },
+        }
+      );
 
       // 좋아요취소 성공 시 success: true 값과 함께 좋아요취소 정보를 보내준다
       res.status(201).json({ success: true });
