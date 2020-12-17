@@ -16,14 +16,14 @@ module.exports = {
       // 새 좋아요 인스턴스를 만든다
       const [newLike, created] = await Favorite.findOrCreate({
         where: { pickerId: decode.id, photoId: photoId },
-        defaults: { favorite: 1 },
+        defaults: { favorite: true },
       });
 
       // 화이팅
       if (created) {
         if (created === 0) {
           Favorite.update(
-            { favorite: 1 },
+            { favorite: true },
             {
               where: {
                 pickerId: decode.id,
@@ -33,7 +33,7 @@ module.exports = {
           );
         } else {
           Favorite.update(
-            { favorite: 0 },
+            { favorite: false },
             {
               where: {
                 pickerId: decode.id,
