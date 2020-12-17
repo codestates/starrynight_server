@@ -17,11 +17,22 @@ module.exports = {
       const newFavorite = await Favorite.create({
         photoId: photoId,
         pickerId: decode.id,
-        favorite: true,
       });
 
+      const update = await Favorite.update(
+        { favorite: true },
+        {
+          where: {
+            id: newFavorite.dataValues.id,
+            photoId: newFavorite.dataValues.photoId,
+            pickerId: newFavorite.dataValues.pickerId,
+          },
+        }
+      );
+
       // 좋아요 성공 시 success: true 값과 함께 좋아요 정보를 보내준다
-      res.status(201).json({ success: true });
+      // res.status(201).json({ success: true });
+      res.status(201).send("좋아요 성공");
     } catch (err) {
       // 좋아요 실패 시 success: false 값을 보내준다
       res.status(500).json({ success: false });
