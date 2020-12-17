@@ -7,8 +7,9 @@ const findOverlap = async function (...args) {
   bool.push(await User.findOne({ where: { nickname: args[1] } }));
   bool.push(await User.findOne({ where: { mobile: args[2] } }));
 
-  for (let i = 0; bool.length; i++) {
-    if (!bool[i]) {
+  for (let i = 0; i < bool.length; i++) {
+    // 정보가 있다면 중복이라는 의미
+    if (bool[i] !== null) {
       return false;
     }
   }
@@ -18,24 +19,29 @@ const findOverlap = async function (...args) {
 module.exports = {
   post: async (req, res) => {
     const { email, nickname, mobile, password, loginPlatformId } = req.body;
-    // const defaultProfilePath = req.file.location || process.env.DEFAULT_IMG;
-    const defaultProfilePath =
-      req.body.file.location || process.env.DEFAULT_IMG;
+    let profilePath;
+    console.log(req.file);
+    console.log("회원가입 유저 정보 : ", req.body);
+    if (req.file.location) {
+      profilePath = req.file.location;
+    } else {
+      profilePath = process.env.DEFAULT_IMG;
+    }
 
-    if (!email || !nickname || !mobile || !password || !loginPlatformId) {
+    if (!email || !nickname || !mobile || !password) {
       res.status(422).send("정보를 다 입력해주세요");
     }
 
-    let overlap = await findOverlap(email, nickname, mobile);
-    console.log("판별 : ", overlap);
-    if (overlap === false) {
+    let notOverlap = await findOverlap(email, nickname, mobile);
+
+    if (notOverlap === true) {
       const newUser = await User.findOrCreate({
         where: { email, nickname },
         defaults: {
           mobile: mobile,
           password: password,
           loginPlatformId: 1,
-          profilePath: defaultProfilePath,
+          profilePath: profilePath,
         },
       });
 

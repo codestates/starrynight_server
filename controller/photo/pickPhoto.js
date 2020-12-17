@@ -27,10 +27,12 @@ module.exports = {
     });
 
     // 시간 포맷팅
-    for(let i = 0; i < writerId.length; i++) {
+    for (let i = 0; i < writerId.length; i++) {
       let time = writerId[i].dataValues["createdAt"];
 
-      writerId[i].dataValues["date"] = `${time.getFullYear()}.${time.getMonth() + 1}.${time.getDate()}`;
+      writerId[i].dataValues["date"] = `${time.getFullYear()}.${
+        time.getMonth() + 1
+      }.${time.getDate()}`;
     }
 
     for (let i = 0; i < users.length; i++) {
@@ -38,8 +40,11 @@ module.exports = {
 
       // 댓글에 해당 유저의 닉네임을 삽입
       writerId[i].dataValues["nickname"] = user.dataValues.nickname;
-      writerId[i].dataValues["commenterProfilePath"] = user.dataValues.profilePath;
+      writerId[i].dataValues["commenterProfilePath"] =
+        user.dataValues.profilePath;
     }
+
+    let reverseWriterId = writerId.reverse();
 
     datas = {
       id: photoInfo.dataValues.id,
@@ -49,7 +54,7 @@ module.exports = {
       writer: writer.dataValues.nickname,
       writerProfilePath: writer.dataValues.profilePath,
       hashtags: [...hashtag],
-      replies: [...writerId],
+      replies: [...reverseWriterId],
     };
 
     // Favorite
