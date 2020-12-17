@@ -36,7 +36,12 @@ module.exports = {
         result.push(findPickerPhotosInfo);
       }
 
-      res.status(200).json(result);
+      //  let reversePhotos = photos.reverse();
+
+      let reverseResult = result.reverse();
+
+
+      res.status(200).json(reverseResult);
     }
   },
 }
