@@ -20,9 +20,9 @@ module.exports = {
       });
 
       if (created) {
-        if (created.favorite === 1) {
+        if (created.favorite === 0) {
           Favorite.update(
-            { favorite: 0 },
+            { favorite: 1 },
             {
               where: {
                 pickerId: created.dataValues.pickerId,
@@ -32,7 +32,7 @@ module.exports = {
           );
         } else {
           Favorite.update(
-            { favorite: 1 },
+            { favorite: 0 },
             {
               where: {
                 pickerId: created.dataValues.pickerId,
