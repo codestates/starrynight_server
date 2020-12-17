@@ -21,17 +21,17 @@ module.exports = {
         },
       });
 
-      if (created) {
-        Favorite.update(
-          { favorite: 0 },
-          {
-            where: {
-              pickerId: decode.id,
-              photoId: photoId,
-            },
-          }
-        );
-      }
+      // if (created) {
+      //   Favorite.update(
+      //     { favorite: 0 },
+      //     {
+      //       where: {
+      //         pickerId: decode.id,
+      //         photoId: photoId,
+      //       },
+      //     }
+      //   );
+      // }
       res.status(201).json("좋아요를 눌렀습니다 :)");
     } catch (err) {
       res.status(500).send("실패입니다");
