@@ -20,7 +20,7 @@ module.exports = {
       });
 
       if (created) {
-        if (created.favorite === 0) {
+        if (created === 0) {
           Favorite.update(
             { favorite: 1 },
             {
