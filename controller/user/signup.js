@@ -18,6 +18,7 @@ const findOverlap = async function (...args) {
 module.exports = {
   post: async (req, res) => {
     const { email, nickname, mobile, password, loginPlatformId } = req.body;
+    const defaultProfilePath = req.file.location || process.env.DEFAULT_IMG;
 
     if (!email || !nickname || !mobile || !password || !loginPlatformId) {
       res.status(422).send('정보를 다 입력해주세요');
@@ -26,8 +27,6 @@ module.exports = {
     let overlap = await findOverlap(email, nickname, mobile);
     console.log('판별 : ', overlap);
     if (overlap === false) {
-      const defaultProfilePath = process.env.DEFAULT_IMG;
-
       const newUser = await User
         .findOrCreate({
           where: { email, nickname },
