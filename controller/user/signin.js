@@ -36,7 +36,7 @@ module.exports = {
           secure: true,
         });
 
-        res.status(200).json({ accessToken: tokens[1] });
+        res.status(200).json({user: userData, accessToken: tokens[1] });
       }
     } catch (err) {
       res.sendStatus(500);

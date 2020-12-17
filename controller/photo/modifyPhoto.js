@@ -12,7 +12,11 @@ module.exports = {
 
       for (let i = 0; i < hashtags.length; i++) {
         const findHashTag = await HashTag.findOrCreate({
+<<<<<<< HEAD
           where: { subject: hashtags[i], photoId: id },
+=======
+          where: { subject: hashtags[i], photoId: id }
+>>>>>>> f7eff855049892cb3ec9a8763680f5e8423b70ca
         });
       }
 
