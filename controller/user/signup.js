@@ -1,14 +1,16 @@
 const { User } = require('../../models');
 
-const findOverlap = async function (...args) {
+const findOverlap = async function (email, nickname, mobile) {
   let bool = [];
 
-  bool.push(await User.findOne({ where: { email: args[0] } }));
-  bool.push(await User.findOne({ where: { nickname: args[1] } }));
-  bool.push(await User.findOne({ where: { mobile: args[2] } }));
+  bool.push(await User.findOne({ where: { email: email } }));
+  bool.push(await User.findOne({ where: { nickname: nickname } }));
+  bool.push(await User.findOne({ where: { mobile: mobile } }));
 
-  for (let i = 0; bool.length; i++) {
-    if (bool[i] !== undefined || bool[i] !== null) {
+	console.log(bool);
+
+  for (let i = 0; i < bool.length; i++) {
+    if (bool[i] !== null) {
       return false;
     }
   }
@@ -31,7 +33,7 @@ module.exports = {
     }
 
     let notOverlap = await findOverlap(email, nickname, mobile);
-
+console.log(notOverlap);
     if (notOverlap === true) {
       const newUser = await User
         .findOrCreate({
