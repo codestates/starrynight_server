@@ -14,24 +14,36 @@ module.exports = {
 
     // 새 좋아요 인스턴스를 만든다
     try {
-      const [newLike, created] = await Favorite.findOrCreate({
-        where: { pickerId: decode.id, photoId: photoId },
-        defaults: {
-          favorite: 1,
-        },
-      });
+      const [newLike, created] = await Favorite.findOrCreate(
+        { favorite: 1 },
+        {
+          where: { pickerId: decode.id, photoId: photoId },
+        }
+      );
 
-      // if (created) {
-      //   Favorite.update(
-      //     { favorite: 0 },
-      //     {
-      //       where: {
-      //         pickerId: decode.id,
-      //         photoId: photoId,
-      //       },
-      //     }
-      //   );
-      // }
+      if (created) {
+        if (created.favorite === 1) {
+          Favorite.update(
+            { favorite: 0 },
+            {
+              where: {
+                pickerId: decode.id,
+                photoId: photoId,
+              },
+            }
+          );
+        } else {
+          Favorite.update(
+            { favorite: 1 },
+            {
+              where: {
+                pickerId: decode.id,
+                photoId: photoId,
+              },
+            }
+          );
+        }
+      }
       res.status(201).json("좋아요를 눌렀습니다 :)");
     } catch (err) {
       res.status(500).send("실패입니다");
