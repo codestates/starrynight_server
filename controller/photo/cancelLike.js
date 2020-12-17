@@ -37,10 +37,12 @@ module.exports = {
       );
 
       // 좋아요취소 성공 시 success: true 값과 함께 좋아요취소 정보를 보내준다
-      res.status(201).json({ success: true });
+      // res.status(201).json({ success: true });
+      res.status(201).send("좋아요를 취소합니다 :(");
     } catch (err) {
       // 좋아요취소 실패 시 success: false 값을 보내준다
-      res.status(500).json({ success: false });
+      // res.status(500).json({ success: false });
+      res.status(500).send("실패입니다");
     }
   },
 };
