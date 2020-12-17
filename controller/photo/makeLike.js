@@ -19,7 +19,7 @@ module.exports = {
       });
 
       // 만들어진 좋아요 인스턴스에 사진정보(photoId) 값을 추가한다
-      const newFavorite = await protoFavorite.update(
+      const newFavorite = await Favorite.update(
         { photoId: photoId },
         {
           where: {
