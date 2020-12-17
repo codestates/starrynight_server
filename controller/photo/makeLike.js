@@ -27,6 +27,8 @@ module.exports = {
           photoId: photoId,
           favorite: true,
         });
+
+        res.status(201).json({ favorite: newLike.favorite });
       } else {
         const update = await Favorite.update(
           { favorite: !findLike.dataValues.favorite },
@@ -37,10 +39,9 @@ module.exports = {
             },
           }
         );
-      }
 
-      // 댓글 생성 성공 시 success: true 값을 보내준다
-      res.status(201).send("좋아요를 눌렀습니다 :)");
+        res.status(201).json({ favorite: update.favorite });
+      }
     } catch (err) {
       res.status(500).send("실패입니다");
     }
