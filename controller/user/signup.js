@@ -18,11 +18,13 @@ const findOverlap = async function (...args) {
 module.exports = {
   post: async (req, res) => {
     const { email, nickname, mobile, password, loginPlatformId } = req.body;
+    console.log(req.file);
+	let defaultProfilePath
 
-	     if(!req.file) {
-      const defaultProfile = req.file.location;
+     if(req.file) {
+      defaultProfilePathe = req.file.location;
     } else {
-      const defaultProfile = process.env.DEFAULT_IMG;
+      defaultProfilePath = process.env.DEFAULT_IMG;
     }
 
     if (!email || !nickname || !mobile || !password || !loginPlatformId) {
