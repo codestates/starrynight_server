@@ -27,7 +27,9 @@ module.exports = {
         }
       )
 
-      res.status(200).json(gallery);
+      let reverseGallery = gallery.reverse();
+
+      res.status(200).json(reverseGallery);
     }
   },
 }

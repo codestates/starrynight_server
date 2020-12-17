@@ -41,6 +41,8 @@ module.exports = {
       writerId[i].dataValues["commenterProfilePath"] = user.dataValues.profilePath;
     }
 
+    let reverseWriterId = writerId.reverse();
+
     datas = {
       id: photoInfo.dataValues.id,
       photoPath: photoInfo.dataValues.photoPath,
@@ -49,7 +51,7 @@ module.exports = {
       writer: writer.dataValues.nickname,
       writerProfilePath: writer.dataValues.profilePath,
       hashtags: [...hashtag],
-      replies: [...writerId],
+      replies: [...reverseWriterId],
     };
 
     // Favorite
