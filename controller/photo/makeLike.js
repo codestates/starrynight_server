@@ -25,8 +25,8 @@ module.exports = {
             { favorite: 0 },
             {
               where: {
-                pickerId: decode.id,
-                photoId: photoId,
+                pickerId: created.dataValues.pickerId,
+                photoId: created.dataValues.photoId,
               },
             }
           );
@@ -35,8 +35,8 @@ module.exports = {
             { favorite: 1 },
             {
               where: {
-                pickerId: decode.id,
-                photoId: photoId,
+                pickerId: created.dataValues.pickerId,
+                photoId: created.dataValues.photoId,
               },
             }
           );
