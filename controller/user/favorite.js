@@ -21,6 +21,7 @@ module.exports = {
       req.headers.authorization,
       req.cookies.refreshToken
     );
+
     const decode = jwt.verify(token, process.env.SECRET_KEY);
     let result = [];
 
@@ -44,7 +45,9 @@ module.exports = {
 
       let reverseResult = result.reverse();
 
+
+
       res.status(200).json(reverseResult);
     }
   },
-};
+}
