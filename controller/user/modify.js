@@ -68,7 +68,7 @@ module.exports = {
   profile: async (req, res) => {
     const token = findAuthorized(res, req.headers.authorization, req.cookies.refreshToken);
     const decode = jwt.verify(token, KEY);
-
+    console.log(req.file);
     console.log('프로필 사진 변경 요청이 왔심더~~');
     if (decode) {
       const modifyProfile = await User.update(
