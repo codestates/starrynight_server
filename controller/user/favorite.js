@@ -45,9 +45,7 @@ module.exports = {
 
       let reverseResult = result.reverse();
 
-
-
       res.status(200).json(reverseResult);
     }
   },
-}
+};

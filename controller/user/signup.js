@@ -23,7 +23,6 @@ module.exports = {
     console.log(req.file);
     console.log("회원가입 유저 정보 : ", req.body);
     if (req.file.location) {
-
       profilePath = req.file.location;
     } else {
       profilePath = process.env.DEFAULT_IMG;

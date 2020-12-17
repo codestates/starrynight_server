@@ -17,13 +17,13 @@ module.exports = {
       const [newLike, created] = await Favorite.findOrCreate({
         where: { pickerId: decode.id, photoId: photoId },
         defaults: {
-          favorite: true,
+          favorite: 1,
         },
       });
 
       if (created) {
         Favorite.update(
-          { favorite: false },
+          { favorite: 0 },
           {
             where: {
               pickerId: decode.id,
@@ -32,7 +32,7 @@ module.exports = {
           }
         );
       }
-      res.status(201).json("회원가입이 완료되었습니다.");
+      res.status(201).json("좋아요를 눌렀습니다 :)");
     } catch (err) {
       res.status(500).send("실패입니다");
     }
