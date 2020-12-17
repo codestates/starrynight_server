@@ -21,7 +21,7 @@ module.exports = {
 
       // 화이팅
       if (created) {
-        if (created.favorite === 0) {
+        if (created === 0) {
           Favorite.update(
             { favorite: 1 },
             {
