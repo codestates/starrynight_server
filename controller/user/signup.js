@@ -1,4 +1,4 @@
-const { User } = require('../../models');
+const { User } = require("../../models");
 
 const findOverlap = async function (...args) {
   let bool = [];
@@ -14,45 +14,48 @@ const findOverlap = async function (...args) {
     }
   }
   return true;
-}
+};
 
 module.exports = {
   post: async (req, res) => {
     const { email, nickname, mobile, password, loginPlatformId } = req.body;
-	  let defaultProfilePath;
+	let profilePath;
+	  console.log(req.file);
+console.log('회원가입 유저 정보 : ',req.body);
+	     if(req.file.location) {
+      profilePath = req.file.location;
+    } else {
+      profilePath = process.env.DEFAULT_IMG;
+    }
 
-    console.log(req.body);
-
-    if (!email || !nickname || !mobile || !password || !loginPlatformId) {
-      res.status(422).send('정보를 다 입력해주세요');
+    if (!email || !nickname || !mobile || !password) {
+      res.status(422).send("정보를 다 입력해주세요");
     }
 
     let notOverlap = await findOverlap(email, nickname, mobile);
 
     if (notOverlap === true) {
-      const newUser = await User
-        .findOrCreate({
-          where: { email, nickname },
-          defaults: {
-            mobile: mobile,
-            password: password,
-            loginPlatformId: 1,
-            profilePath: defaultProfilePath
-          }
-        });
+      const newUser = await User.findOrCreate({
+        where: { email, nickname },
+        defaults: {
+          mobile: mobile,
+          password: password,
+          loginPlatformId: 1,
+          profilePath: profilePath,
+        },
+      });
 
       if (newUser) {
         const [user, created] = newUser;
 
         try {
-          res.status(201).json('회원가입이 완료되었습니다.');
+          res.status(201).json("회원가입이 완료되었습니다.");
         } catch (err) {
           res.sendStatus(500);
         }
       }
-
     } else {
-      res.status(409).send('이미 존재하는 유저입니다.');
+      res.status(409).send("이미 존재하는 유저입니다.");
     }
-  }
-}
+  },
+};

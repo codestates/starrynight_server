@@ -15,7 +15,7 @@ let upload = multer({
     bucket: 'mystar-story.com/uploadPhotos/profilePhotos',
 
     key: function (req, file, cb) {
-      cb(null, `${Date.now()}_${file.originalname}`);
+      cb(null, `${Date.now()}_${494}`);
     },
 
     contentLength: 5000000, // 5mb
@@ -27,7 +27,7 @@ let upload = multer({
 router.post('/signin', userController.signin.post);
 router.get('/signin/google', userController.signin.google);
 router.get('/signin/kakao', userController.signin.kakao);
-router.post('/signup', userController.signup.post);
+router.post('/signup',upload.single("file"), userController.signup.post);
 router.post('/signout', userController.signout.post);
 router.post('/find/email', userController.findUser.email);
 router.post('/find/password', userController.findUser.password);
