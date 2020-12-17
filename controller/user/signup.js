@@ -19,17 +19,10 @@ const findOverlap = async function (...args) {
 module.exports = {
   post: async (req, res) => {
     const { email, nickname, mobile, password, loginPlatformId } = req.body;
-<<<<<<< HEAD
     let profilePath;
     console.log(req.file);
     console.log("회원가입 유저 정보 : ", req.body);
     if (req.file.location) {
-=======
-	let profilePath;
-	  console.log(req.file);
-console.log('회원가입 유저 정보 : ',req.body);
-	     if(req.file.location) {
->>>>>>> f7eff855049892cb3ec9a8763680f5e8423b70ca
       profilePath = req.file.location;
     } else {
       profilePath = process.env.DEFAULT_IMG;

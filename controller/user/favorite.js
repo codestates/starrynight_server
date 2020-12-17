@@ -16,15 +16,12 @@ function findAuthorized(res, acc, ref) {
 
 module.exports = {
   get: async (req, res) => {
-<<<<<<< HEAD
     const token = findAuthorized(
       res,
       req.headers.authorization,
       req.cookies.refreshToken
     );
-=======
-    const token = findAuthorized(res, req.headers.authorization, req.cookies.refreshToken);
->>>>>>> f7eff855049892cb3ec9a8763680f5e8423b70ca
+
     const decode = jwt.verify(token, process.env.SECRET_KEY);
     let result = [];
 
@@ -48,15 +45,7 @@ module.exports = {
 
       let reverseResult = result.reverse();
 
-<<<<<<< HEAD
       res.status(200).json(reverseResult);
     }
   },
 };
-=======
-
-      res.status(200).json(reverseResult);
-    }
-  },
-}
->>>>>>> f7eff855049892cb3ec9a8763680f5e8423b70ca
