@@ -19,6 +19,7 @@ module.exports = {
         defaults: { favorite: 1 },
       });
 
+      // 화이팅
       if (created) {
         if (created === 0) {
           Favorite.update(
