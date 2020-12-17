@@ -8,7 +8,7 @@ const findOverlap = async function (...args) {
   bool.push(await User.findOne({ where: { mobile: args[2] } }));
 
   for (let i = 0; bool.length; i++) {
-    if (!bool[i]) {
+    if (bool[i] !== undefined || bool[i] !== null) {
       return false;
     }
   }
@@ -18,8 +18,7 @@ const findOverlap = async function (...args) {
 module.exports = {
   post: async (req, res) => {
     const { email, nickname, mobile, password, loginPlatformId } = req.body;
-    console.log(req.file);
-	let defaultProfilePath
+	  let defaultProfilePath;
 
      if(req.file) {
       defaultProfilePathe = req.file.location;
@@ -31,9 +30,9 @@ module.exports = {
       res.status(422).send('정보를 다 입력해주세요');
     }
 
-    let overlap = await findOverlap(email, nickname, mobile);
-    console.log('판별 : ', overlap);
-    if (overlap === false) {
+    let notOverlap = await findOverlap(email, nickname, mobile);
+
+    if (notOverlap === true) {
       const newUser = await User
         .findOrCreate({
           where: { email, nickname },
