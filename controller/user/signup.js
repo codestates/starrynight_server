@@ -21,7 +21,7 @@ module.exports = {
   post: async (req, res) => {
     const { email, nickname, mobile, password, loginPlatformId } = req.body;
 	  let defaultProfilePath;
-
+console.log(req.body);
      if(req.file) {
       defaultProfilePathe = req.file.location;
     } else {
