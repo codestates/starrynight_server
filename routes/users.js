@@ -27,7 +27,7 @@ let upload = multer({
 router.post('/signin', userController.signin.post);
 router.get('/signin/google', userController.signin.google);
 router.get('/signin/kakao', userController.signin.kakao);
-router.post('/signup',upload.single("file"), userController.signup.post);
+router.post('/signup', userController.signup.post);
 router.post('/signout', userController.signout.post);
 router.post('/find/email', userController.findUser.email);
 router.post('/find/password', userController.findUser.password);
