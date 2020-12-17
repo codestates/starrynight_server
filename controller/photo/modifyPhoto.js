@@ -12,8 +12,7 @@ module.exports = {
 
       for (let i = 0; i < hashtags.length; i++) {
         const findHashTag = await HashTag.findOrCreate({
-          where: { subject: hashtags[i] },
-          defaults: { photoId: id }
+          where: { subject: hashtags[i], photoId: id }
         });
       }
 
