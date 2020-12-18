@@ -20,9 +20,11 @@ module.exports = {
   post: async (req, res) => {
     const { email, nickname, mobile, password, loginPlatformId } = req.body;
     let profilePath;
+
     console.log(req.file);
     console.log("회원가입 유저 정보 : ", req.body);
-    if (req.file.location) {
+
+    if (req.file === undefined) {
       profilePath = req.file.location;
     } else {
       profilePath = process.env.DEFAULT_IMG;

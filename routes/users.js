@@ -35,11 +35,7 @@ router.get("/mypage", userController.mypage.info);
 router.patch("/modify/nickname", userController.modify.nickname);
 router.patch("/modify/password", userController.modify.password);
 router.patch("/modify/mobile", userController.modify.mobile);
-router.patch(
-  "/modify/profile",
-  upload.single("file"),
-  userController.modify.profile
-);
+router.patch("/modify/profile", upload.single("file"), userController.modify.profile);
 router.get("/delete", userController.deleteUser.delete);
 router.get("/gallery", userController.gallery.get);
 router.get("/favorite", userController.favorite.get);
