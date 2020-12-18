@@ -28,7 +28,7 @@ module.exports = {
     if (decode) {
       // 해당 사용자가 좋아요를 한 사진들의 id를 뽑아온다.
       const favoritePhotos = await Favorite.findAll({
-        where: { pickerId: decode.id },
+        where: { pickerId: decode.id, favorite: 1 },
         attributes: ["photoId"],
       });
 
