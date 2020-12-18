@@ -21,13 +21,17 @@ module.exports = {
     const decode = jwt.verify(token, KEY);
     const { nickname } = req.body;
 
-    const modifyNickname = await User.update(
-      { nickname: nickname },
-      { where: { id: decode.id } }
-    );
+    const overlapNickname = await User.findOne({ where: { nickname: nickname } });
 
-    if (modifyNickname) {
+    // 찾을 수 없다면 null이 나온다.
+    if (!overlapNickname) {
+      const modifyNickname = await User.update(
+        { nickname: nickname },
+        { where: { id: decode.id } }
+      );
+
       res.status(200).json({ nickname: nickname });
+
     } else {
       res.status(404).send('이미 존재하는 별명입니다.');
     }
@@ -53,13 +57,17 @@ module.exports = {
     const decode = jwt.verify(token, KEY);
     const { mobile } = req.body;
 
-    const modifyMobile = await User.update(
-      { mobile: mobile },
-      { where: { id: decode.id } }
-    );
+    const overlapMobile = await User.findOne({ where: { mobile: mobile } });
 
-    if (modifyMobile) {
+
+    if (!overlapMobile) {
+      const modifyMobile = await User.update(
+        { mobile: mobile },
+        { where: { id: decode.id } }
+      );
+
       res.status(200).json({ mobile: mobile });
+
     } else {
       res.status(404).send('이미 존재하는 연락처입니다.');
     }
