@@ -36,7 +36,7 @@ module.exports = {
           secure: true,
         });
 
-        res.status(200).json({user: userData, accessToken: tokens[1] });
+        res.status(200).json({ user: userData, accessToken: tokens[1] });
       }
     } catch (err) {
       res.sendStatus(500);
@@ -85,8 +85,8 @@ module.exports = {
         secure: true,
       });
 
-      //res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
-      res.redirect(`http://localhost:3000/?access_token=${tokens[1]}`);
+      res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
+      //res.redirect(`http://localhost:3000/?access_token=${tokens[1]}`);
     }
 
   },
@@ -131,8 +131,8 @@ module.exports = {
         sameSite: 'none',
         secure: true,
       });
-      // res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
-      res.redirect(`http://localhost:3000/?access_token=${tokens[1]}`);
+      res.redirect(`https://mystar-story.com/?access_token=${tokens[1]}`);
+      //res.redirect(`http://localhost:3000/?access_token=${tokens[1]}`);
     }
 
   }
