@@ -63,10 +63,11 @@ module.exports = {
       // 로그인한 유저가 선택한 사진에 좋아요를 클릭했는지 찾기
       const token = req.headers.authorization;
       const decode = jwt.verify(token, process.env.SECRET_KEY);
-      const isFavorite = await Favorite.findOne({
-        where: { id: id, pickerId: decode.id },
+  console.log(id, ' : ', decode.id);
+	    const isFavorite = await Favorite.findOne({
+        where: { photoId: id, pickerId: decode.id}
       });
-
+console.log(isFavorite);
       if (isFavorite === null || isFavorite.dataValues.favorite === false) {
         console.log("[FALSE] 마!! 왜 좋아요 안해주십니까!!");
 
