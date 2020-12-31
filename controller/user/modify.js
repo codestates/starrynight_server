@@ -8,9 +8,16 @@ function findAuthorized(res, acc, ref) {
     res.status(401).send('다시 로그인 해주세요');
   } else {
     if (acc) {
-      return acc;
+      return [acc];
     } else {
-      return ref;
+      // Access Token 재생성
+      let accessToken = jwt.sign(
+        { id: id },
+        process.env.SECRET_KEY,
+        { expiresIn: '1d' }
+      );
+
+      return [ref, accessToken];
     }
   }
 }
@@ -18,7 +25,7 @@ function findAuthorized(res, acc, ref) {
 module.exports = {
   nickname: async (req, res) => {
     const token = findAuthorized(res, req.headers.authorization, req.cookies.refreshToken);
-    const decode = jwt.verify(token, KEY);
+    const decode = jwt.verify(token[0], KEY);
     const { nickname } = req.body;
 
     const overlapNickname = await User.findOne({ where: { nickname: nickname } });
@@ -30,8 +37,11 @@ module.exports = {
         { where: { id: decode.id } }
       );
 
-      res.status(200).json({ nickname: nickname });
-
+      if (token[1] === undefined) {
+        res.status(200).json({ nickname: nickname });
+      } else {
+        res.status(200).json({ nickname: nickname, accessToken: token[1] });
+      }
     } else {
       res.status(404).send('이미 존재하는 별명입니다.');
     }
@@ -39,7 +49,7 @@ module.exports = {
 
   password: async (req, res) => {
     const token = findAuthorized(res, req.headers.authorization, req.cookies.refreshToken);
-    const decode = jwt.verify(token, KEY);
+    const decode = jwt.verify(token[0], KEY);
     const { password } = req.body;
 
     const modifyPassword = await User.update(
@@ -48,13 +58,19 @@ module.exports = {
     );
 
     if (modifyPassword) {
-      res.status(200).send('비밀번호가 변경되었습니다.');
+      if (token[1] === undefined) {
+        res.status(200).send('비밀번호가 변경되었습니다.');
+      } else {
+        res.status(200).json({ accessToken: token[1] });
+      }
+    } else {
+      res.status(404).send('다시 시도해 주세요.');
     }
   },
 
   mobile: async (req, res) => {
     const token = findAuthorized(res, req.headers.authorization, req.cookies.refreshToken);
-    const decode = jwt.verify(token, KEY);
+    const decode = jwt.verify(token[0], KEY);
     const { mobile } = req.body;
 
     const overlapMobile = await User.findOne({ where: { mobile: mobile } });
@@ -66,8 +82,11 @@ module.exports = {
         { where: { id: decode.id } }
       );
 
-      res.status(200).json({ mobile: mobile });
-
+      if (token[1] === undefined) {
+        res.status(200).json({ mobile: mobile });
+      } else {
+        res.status(200).json({ mobile: mobile, accessToken: token[1] });
+      }
     } else {
       res.status(404).send('이미 존재하는 연락처입니다.');
     }
@@ -76,8 +95,7 @@ module.exports = {
   profile: async (req, res) => {
     const token = findAuthorized(res, req.headers.authorization, req.cookies.refreshToken);
     const decode = jwt.verify(token, KEY);
-    console.log(req.file);
-    console.log('프로필 사진 변경 요청이 왔심더~~');
+
     if (decode) {
       const modifyProfile = await User.update(
         { profilePath: req.file.location },
@@ -85,7 +103,11 @@ module.exports = {
       );
 
       if (modifyProfile) {
-        res.status(200).json({ profilePath: req.file.location });
+        if (token[1] === undefined) {
+          res.status(200).json({ profilePath: req.file.location });
+        } else {
+          res.status(200).json({ profilePath: req.file.location, accessToken: token[1] });
+        }
       } else {
         res.status(404).send('유효하지 않은 사진입니다.');
       }

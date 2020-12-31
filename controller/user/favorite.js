@@ -4,25 +4,27 @@ const jwt = require("jsonwebtoken");
 function findAuthorized(res, acc, ref) {
   // 모든 토큰이 없을 경우
   if (!acc && !ref) {
-    res.status(401).send("다시 로그인 해주세요");
+    res.status(401).send('다시 로그인 해주세요');
   } else {
     if (acc) {
-      return acc;
+      return [acc];
     } else {
-      return ref;
+      // Access Token 재생성
+      let accessToken = jwt.sign(
+        { id: id },
+        process.env.SECRET_KEY,
+        { expiresIn: '1d' }
+      );
+
+      return [ref, accessToken];
     }
   }
 }
 
 module.exports = {
   get: async (req, res) => {
-    const token = findAuthorized(
-      res,
-      req.headers.authorization,
-      req.cookies.refreshToken
-    );
-
-    const decode = jwt.verify(token, process.env.SECRET_KEY);
+    const token = findAuthorized(res, req.headers.authorization, req.cookies.refreshToken);
+    const decode = jwt.verify(token[0], process.env.SECRET_KEY);
     let result = [];
 
     if (decode) {
@@ -41,11 +43,15 @@ module.exports = {
         result.push(findPickerPhotosInfo);
       }
 
-      //  let reversePhotos = photos.reverse();
-
       let reverseResult = result.reverse();
 
-      res.status(200).json(reverseResult);
+      if (token[1] === undefined) {
+        res.status(200).json(reverseResult);
+      } else {
+        res.status(200).json(reverseResult, { accessToken: token[1] });
+      }
+    } else {
+      res.status(404).send('다시 시도해 주세요');
     }
   },
 };
