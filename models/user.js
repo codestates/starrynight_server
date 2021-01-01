@@ -43,6 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       shasum.update(data.where.password);
       data.where.password = shasum.digest('hex');
     }
-  })
+  });
+
   return User;
 };
